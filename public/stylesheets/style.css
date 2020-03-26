@@ -1,0 +1,219 @@
+body {
+    background: rgb(48, 51, 78) !important;
+
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #9dc7e8;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background: #9dc7e8;
+    color: #30334e;
+}
+
+.navbar a.active {
+    background: #9dc7e8;
+    color: #30334e;
+}
+
+form.search input[type=text] {
+    margin-top: 70px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #9dc7e8;
+    width: 80%;
+    background: #4d4d67;
+    display: inline-block;
+}
+
+form.search input[type=text]:focus {
+    color: #9dc7e8;
+    outline: 2px solid #16a6d1;
+}
+
+form.search button {
+    width: 15%;
+    padding: 10px;
+    background: #9dc7e8;
+    color: #30334e;
+    font-size: 15px;
+    border-left: none;
+    cursor: pointer;
+}
+
+form.search button:hover {
+    background: #16a6d1;
+}
+
+form.search::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container {
+    margin: 140px 0;
+    align-content: center;
+}
+
+.fieldset-form {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #4d4d67;
+    display: flex;
+    border: none;
+    padding: 10%;
+    width: 25%;
+}
+
+.page-title {
+    font-family: sans-serif;
+    color: snow;
+}
+
+.imgTitle{
+    font-family: sans-serif;
+    color: snow;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.imgDescription{
+    font-family: sans-serif;
+    color: snow;
+    font-size: 18px;
+}
+
+label {
+    display: inline-block;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    float: left;
+    padding-left: 15px;
+    text-indent: -15px;
+    font-family: sans-serif;
+    font-size: 10px;
+    color: #9ba8e3;
+}
+
+::placeholder {
+    color: #9ba8e3;
+}
+
+.checkboxes label {
+    display: block;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.checkboxes input {
+    vertical-align: middle;
+}
+
+.checkboxes label span {
+    vertical-align: middle;
+    position: relative;
+}
+
+.input-field {
+    width: 100%;
+    background-color: #30334e;
+    border: 1px solid #9dc7e8;
+    color: #9dc7e8;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.input-field:focus {
+    outline: 2px solid #16a6d1;
+}
+
+.button {
+    border-radius: 2px;
+    background-color: #16a6d1;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.button:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+}
+
+.homeImg {
+    width: 100%;
+}
+.detailsImg{
+    margin: 10% 0 auto;
+    display: block;
+}
+.imgContainer{
+    text-align: center;
+}
+.item {
+    padding: 20px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    break-inside: avoid-column;
+    margin-bottom: 1rem;
+}
+.flexbox {
+    columns: 300px;
+    column-gap: 20px;
+}
+
+.comments-form {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    border: none;
+    padding: 10%;
+    width: 50%;
+}
+
+.comment{
+    font-family: sans-serif;
+    color: snow;
+    font-size: 18px;
+    text-align: left;
+}
+
+.comment-poster{
+    font-family: sans-serif;
+    font-weight: bold;
+    color: snow;
+    font-size: 20px;
+    text-align: left;
+}
+.commentContainer{
+    width:40%;
+    margin-left: auto;
+    margin-right:auto;
+    margin-bottom: 20%;
+}

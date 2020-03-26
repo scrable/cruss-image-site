@@ -1,0 +1,52 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Images</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="homePage.html">Home</a>
+    <% if(!isLoggedIn) {%>
+        <a id="login" href="login.html">Log In</a> <%}%>
+    <% if(isLoggedIn){ %>
+        <a id="logout" href="logout.html">Log Out</a>
+    <% } %>
+    <% if(!isLoggedIn){ %>
+        <a id="signup" href="registration.html">Sign Up</a>
+    <% } %>
+    <% if(isLoggedIn){ %>
+        <a class="active" id="postimg" href="postImage.html">Post Image</a>
+    <% } %>
+</div>
+
+<div class="container">
+    <form method="POST" name="postImage" onsubmit="return validatePost()" encType="multipart/form-data">
+        <fieldset class="fieldset-form">
+            <legend class="page-title">Post image</legend>
+            <label for="ptitle">Title</label>
+            <input class="input-field" type="text" id="ptitle" placeholder="Enter title" name="title" required/>
+
+            <label for="pdescription">Description</label>
+            <input class="input-field" type="text" id="pdescription" placeholder="Enter description" name="description" required/>
+
+            <label for="img"></label>
+            <input type="file" id="img" required alt="Post" class="upload-btn" name="img">
+
+            <div class="checkboxes">
+                <label for="policy"><input type="checkbox" class="custom-control-input" id="policy" required><span>I accept the Acceptable Use Policy for uploading images.</span></label><br/>
+            </div>
+
+            <input class="button" type="submit" value="Submit">
+        </fieldset>
+
+
+
+    </form>
+</div>
+<script type="text/javascript" src="../javascripts/formValidation.js"></script>
+</body>
+</html>

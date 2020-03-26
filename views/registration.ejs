@@ -1,0 +1,55 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Registration</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="homePage.html">Home</a>
+    <% if(!isLoggedIn) {%>
+        <a id="login" href="login.html">Log In</a> <%}%>
+    <% if(isLoggedIn){ %>
+        <a id="logout" href="logout.html">Log Out</a>
+    <% } %>
+    <% if(!isLoggedIn){ %>
+        <a class="active" id="signup" href="registration.html">Sign Up</a>
+    <% } %>
+    <% if(isLoggedIn){ %>
+        <a id="postimg" href="postImage.html">Post Image</a>
+    <% } %>
+</div>
+
+<div class="container">
+    <form name="registration" method="POST" onsubmit="return validateRegistration()">
+        <fieldset class="fieldset-form">
+            <legend class="page-title">Register account</legend>
+            <label for="uname">User Name</label>
+            <input class="input-field" type="text" id="uname" required placeholder="Username" name="username"/>
+
+            <label for="email">Email</label>
+            <input class="input-field" type="email" id="email" required placeholder="Email" name="email"/>
+
+            <label for="psw">Password</label>
+            <input class="input-field" type="password" id="psw" required placeholder="Password" name="password" />
+
+            <label for="cpsw">Confirm Password</label>
+            <input class="input-field" type="password" id="cpsw" required placeholder="Confirm Password" name="inputcpsw"/>
+
+            <div class="checkboxes">
+                <label for="checkage"><input type="checkbox" id="checkage" required><span>I accept I am 13+ years of age.</span></label><br />
+
+                <label for="prules"><input type="checkbox" id="prules" required><span>I accept TOS and Privacy rules.</span></label><br />
+            </div>
+
+            <input class="button" type="submit" value="Submit">
+        </fieldset>
+
+
+    </form>
+</div>
+<script type="text/javascript" src="../javascripts/formValidation.js"></script>
+</body>

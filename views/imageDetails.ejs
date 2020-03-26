@@ -1,0 +1,78 @@
+<html>
+<body>
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="navbar">
+    <a class="active" href="homePage.html">Home</a>
+    <% if(!isLoggedIn) { %>
+        <a id="login" href="login.html">Log In</a>
+    <% } %>
+    <% if(isLoggedIn){ %>
+        <a id="logout" href="logout.html">Log Out</a>
+    <% } %>
+    <% if(!isLoggedIn){ %>
+        <a id="signup" href="registration.html">Sign Up</a>
+    <% } %>
+    <% if(isLoggedIn){ %>
+        <a id="postimg" href="postImage.html">Post Image</a>
+    <% } %>
+</div>
+
+<!--image-->
+<div class="imgContainer">
+
+    <div class="detailsImg"><img src="<%= process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + data[0].photopath %>" style="max-width: 80%" alt="">
+    </div>
+
+    <!--title-->
+    <%var title = "" + data[0].title%>
+    <div >
+        <p class="imgTitle">
+             <%= title %>
+        </p>
+    </div>
+
+    <!--description-->
+    <%var description = "" + data[0].description%>
+    <div >
+        <p class="imgDescription">
+            <%= description %>
+        </p>
+    </div>
+
+    <%if(isLoggedIn){%>
+    <form method="POST" name="postComment">
+        <fieldset class="comments-form">
+            <label for="ptitle">Comment</label>
+            <textarea class="input-field" id="comments" placeholder="Enter Comment" name="comment"></textarea>
+
+            <input class="button" type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <%}%>
+
+
+    <div class="commentContainer">
+        <%if(typeof cmnts == 'object' && cmnts.length) {
+            for(var i = cmnts.length - 1; i >= 0; i--) { %>
+                <%var comment = "" + cmnts[i].comment%>
+                <%var user = "" + cmnts[i].poster%>
+
+                <p class="comment-poster">
+                    <%= user %>
+                </p>
+                <p class="comment">
+                    <%= comment %>
+                </p>
+        <%}}%>
+    </div>
+
+</div>
+
+
+
+
+
+</body>
+</html>

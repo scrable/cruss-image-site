@@ -1,0 +1,40 @@
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>User LogIn</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="homePage.html">Home</a>
+    <% if(!isLoggedIn) {%>
+        <a class="active" id="login" href="login.html">Log In</a> <%}%>
+    <% if(isLoggedIn){ %>
+        <a id="logout" href="logout.html">Log Out</a>
+    <% } %>
+    <% if(!isLoggedIn){ %>
+        <a id="signup" href="registration.html">Sign Up</a>
+    <% } %>
+    <% if(isLoggedIn){ %>
+        <a id="postimg" href="postImage.html">Post Image</a>
+    <% } %>
+</div>
+
+<div class="container">
+    <form name="login" method="POST" onsubmit="return validateLogin()">
+        <fieldset class="fieldset-form">
+            <legend class="page-title">Log In</legend>
+            <label for="uname">User Name</label>
+            <input class="input-field" type="text" id="uname" required placeholder="User Name" name="username"/>
+
+            <label for="psw">Password</label>
+            <input class="input-field" type="password" id="psw" required placeholder="Password" name="password"/>
+            <input class="button" type="submit" value="Submit">
+        </fieldset>
+    </form>
+</div>
+<script type="text/javascript" src="../javascripts/formValidation.js"></script>
+</body>
+</html>
