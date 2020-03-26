@@ -8,14 +8,14 @@ var path = require('path');
 var session = require('express-session');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-var enforce = require('express-sslify');
+// var enforce = require('express-sslify');
 var AWS = require('aws-sdk');
 var router = express.Router();
 global["imgname"] = "";
 global["isLoggedIn"] = false;
 var app = express();
 
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+// app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 var s3 = new AWS.S3({
     accessKeyId: process.env.AWS_BUCKET_ACCESS_KEY_ID,
