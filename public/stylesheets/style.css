@@ -181,9 +181,9 @@ label {
     margin-bottom: 4px;
 }
 .flexbox {
-    columns: 300px;
+    columns: 250px;
     text-align:center;
-    margin: 100px;
+    margin: 50px 200px;
 }
 
 .comments-form {
