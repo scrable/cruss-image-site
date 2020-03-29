@@ -177,15 +177,13 @@ label {
     text-align: center;
 }
 .item {
-    padding: 20px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    break-inside: avoid-column;
-    margin-bottom: 1rem;
+    margin-left: -10px;
+    margin-bottom: 4px;
 }
 .flexbox {
-    columns: 300px;
-    column-gap: 20px;
+    columns: 250px;
+    text-align:center;
+    margin: 50px 200px;
 }
 
 .comments-form {
