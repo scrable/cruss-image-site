@@ -2,7 +2,7 @@ var home = require('./../routes/home');
 
 exports.registration = function (req, res, next) {
     if (req.session.user)
-        res.redirect("/homePage.html");
+        res.redirect("/homePage");
     var users = {
         "username": req.body.username,
         "email": req.body.email,

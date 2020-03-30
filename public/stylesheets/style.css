@@ -1,6 +1,5 @@
 body {
-    background: rgb(48, 51, 78) !important;
-
+    background: rgb(42, 42, 42) !important;
 }
 
 .navbar {
@@ -170,8 +169,8 @@ label {
     width: 100%;
 }
 .detailsImg{
-    margin: 10% 0 auto;
-    display: block;
+    margin-top: 100px;
+    display:block;
 }
 .imgContainer{
     text-align: center;
@@ -183,7 +182,7 @@ label {
 .flexbox {
     columns: 250px;
     text-align:center;
-    margin: 50px 200px;
+    margin: 5% 5%;
 }
 
 .comments-form {

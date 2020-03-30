@@ -69,30 +69,30 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', function (req, res) {
-    res.redirect('/homePage.html');
+    res.redirect('/homePage');
 });
 
-app.get('/login.html', checkLogin, function (req, res, next) {
+app.get('/login', checkLogin, function (req, res, next) {
     res.render('login', {isLoggedIn: isLoggedIn});
 });
 
-app.get('/registration.html', checkRegistration, function (req, res, next) {
+app.get('/registration', checkRegistration, function (req, res, next) {
     res.render('registration', {isLoggedIn: isLoggedIn});
 });
 
-app.get('/logout.html', checkLogout, function (req, res) {
+app.get('/logout', checkLogout, function (req, res) {
     isLoggedIn = false;
     res.render('logout', {isLoggedIn: isLoggedIn});
 
 });
 
-app.get('/postImage.html', checkSignIn, function (req, res) {
+app.get('/postImage', checkSignIn, function (req, res) {
     res.render('postImage', {isLoggedIn: isLoggedIn});
 });
 
 app.get('/imageDetails*', imageDetails.details);
 
-app.get('/homePage.html', function (req, res) {
+app.get('/homePage', function (req, res) {
     if (req.session.user) {
         isLoggedIn = true;
     } else isLoggedIn = false;
@@ -133,41 +133,19 @@ function checkRegistration(req, res, next) {
 function checkLogout(req, res, next) {
     if (req.session.user) {
         req.session.destroy();
-        res.redirect('/homePage.html');
+        res.redirect('/homePage');
     } else {
         var err = new Error("Not logged in");
         next(err);
     }
 }
 
-//get all alternates without html to redirect to with
-app.get('/homePage', function (req, res) {
-    res.redirect('/homePage.html');
-});
-
-app.get('/login', function (req, res) {
-    res.redirect('/login.html');
-});
-
-app.get('/logout', function (req, res) {
-    res.redirect('/logout.html');
-});
-
-app.get('/registration', function (req, res) {
-    res.redirect('/registration.html');
-});
-
-app.get('/postImage', function (req, res) {
-    res.redirect('/postImage.html');
-});
-
 //get some posts
-app.post('/login.html', login.login);//(req, res)  => {
+app.post('/login', login.login);
 
-app.post('/registration.html', login.registration, login.login);
+app.post('/registration', login.registration, login.login);
 
-// app.post('/postImage.html', s3Route.)
-app.post('/postImage.html', upload.single('img'), function (req, res, next) {
+app.post('/postImage', upload.single('img'), function (req, res, next) {
     console.log(req.body.title);
     console.log(imgname);
     var imageInfo = {
@@ -182,34 +160,34 @@ app.post('/postImage.html', upload.single('img'), function (req, res, next) {
             console.log("error ocurred", error);
         }
     });
-    res.redirect('/homePage.html');
+    res.redirect('/homePage');
 });
-app.post('/homePage.html', searchResults.list);
+app.post('/homePage', searchResults.list);
 
 app.post('/imageDetails*', postComment.postcomment);
 
-app.use('/login.html', function (err, req, res, next) {
+app.use('/login', function (err, req, res, next) {
     console.log(err);
     //redirect if logged in
-    res.redirect('/homePage.html');
+    res.redirect('/homePage');
 });
 
-app.use('/registration.html', function (err, req, res, next) {
+app.use('/registration', function (err, req, res, next) {
     console.log(err);
     //redirect if logged in
-    res.redirect('/login.html');
+    res.redirect('/login');
 });
 
-app.use('/postImage.html', function (err, req, res, next) {
+app.use('/postImage', function (err, req, res, next) {
     console.log(err);
     //redirect if not logged in
-    res.redirect('/login.html');
+    res.redirect('/login');
 });
 
-app.use('/logout.html', function (err, req, res, next) {
+app.use('/logout', function (err, req, res, next) {
     console.log(err);
     //redirect
-    res.redirect('/homePage.html');
+    res.redirect('/homePage');
 });
 
 app.use(express.static(path.join(__dirname, 'public')));

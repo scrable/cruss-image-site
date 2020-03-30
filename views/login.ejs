@@ -8,17 +8,17 @@
 <body>
 
 <div class="navbar">
-    <a href="homePage.html">Home</a>
+    <a href="homePage">Home</a>
     <% if(!isLoggedIn) {%>
-        <a class="active" id="login" href="login.html">Log In</a> <%}%>
+        <a class="active" id="login" href="login">Log In</a> <%}%>
     <% if(isLoggedIn){ %>
-        <a id="logout" href="logout.html">Log Out</a>
+        <a id="logout" href="logout">Log Out</a>
     <% } %>
     <% if(!isLoggedIn){ %>
-        <a id="signup" href="registration.html">Sign Up</a>
+        <a id="signup" href="registration">Sign Up</a>
     <% } %>
     <% if(isLoggedIn){ %>
-        <a id="postimg" href="postImage.html">Post Image</a>
+        <a id="postimg" href="postImage">Post Image</a>
     <% } %>
 </div>
 
