@@ -4,18 +4,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="navbar">
-    <a class="active" href="homePage.html">Home</a>
+    <a class="active" href="homePage">Home</a>
     <% if(!isLoggedIn) { %>
-        <a id="login" href="login.html">Log In</a>
+        <a id="login" href="login">Log In</a>
     <% } %>
     <% if(isLoggedIn){ %>
-        <a id="logout" href="logout.html">Log Out</a>
+        <a id="logout" href="logout">Log Out</a>
     <% } %>
     <% if(!isLoggedIn){ %>
-        <a id="signup" href="registration.html">Sign Up</a>
+        <a id="signup" href="registration">Sign Up</a>
     <% } %>
     <% if(isLoggedIn){ %>
-        <a id="postimg" href="postImage.html">Post Image</a>
+        <a id="postimg" href="postImage">Post Image</a>
     <% } %>
 </div>
 
