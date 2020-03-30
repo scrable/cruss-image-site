@@ -170,8 +170,8 @@ label {
     width: 100%;
 }
 .detailsImg{
-    margin: 10% 0 auto;
-    display: block;
+    margin-top: 100px;
+    display:block;
 }
 .imgContainer{
     text-align: center;
@@ -183,7 +183,7 @@ label {
 .flexbox {
     columns: 250px;
     text-align:center;
-    margin: 5% 5%;
+    margin: 50px 200px;
 }
 
 .comments-form {
