@@ -139,6 +139,26 @@ function checkLogout(req, res, next) {
         next(err);
     }
 }
+app.get('/homePage.html', function(req, res){
+    res.redirect('/homePage');
+});
+
+app.get('/login.html', function(req, res){
+    res.redirect('/login');
+});
+
+app.get('/logout.html', function(req, res){
+    res.redirect('/logout');
+});
+
+app.get('/registration.html', function(req, res){
+    res.redirect('/registration');
+});
+
+app.get('/postImage.html', function(req, res){
+    res.redirect('/postImage');
+});
+
 
 //get some posts
 app.post('/login', login.login);
