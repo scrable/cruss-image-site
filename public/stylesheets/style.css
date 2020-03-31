@@ -4,9 +4,10 @@ body {
 
 .navbar {
     overflow: hidden;
-    background-color: black;
+    background-color: #484848;
     position: fixed;
     top: 0;
+    left:0;
     width: 100%;
     font-family: sans-serif;
 }
@@ -14,49 +15,52 @@ body {
 .navbar a {
     float: left;
     display: block;
-    color: #9dc7e8;
+    color: #a07878;
     text-align: center;
-    padding: 14px 16px;
+    padding: 10px 16px;
     text-decoration: none;
 }
 
 .navbar a:hover {
-    background: #9dc7e8;
-    color: #30334e;
+    background: #a07878ad;
+    color: #a07878;
 }
 
 .navbar a.active {
-    background: #9dc7e8;
-    color: #30334e;
+    background: #a07878ad;
+    color: #d6aaaa;
 }
 
 form.search input[type=text] {
-    margin-top: 70px;
+    margin-top: 46px;
     padding: 10px;
     font-size: 15px;
-    border: 1px solid #9dc7e8;
+    border:none;
     width: 80%;
-    background: #4d4d67;
+    background: #484848;
     display: inline-block;
+    text-align: center;
+    border-radius: 8px;
 }
 
 form.search input[type=text]:focus {
-    color: #9dc7e8;
-    outline: 2px solid #16a6d1;
+    color: #d6aaaa;
+    outline: 2px solid #5e7379;
 }
 
 form.search button {
     width: 15%;
-    padding: 10px;
-    background: #9dc7e8;
-    color: #30334e;
+    padding: 11px;
+    background: #a07878;
+    color: #000000;
     font-size: 15px;
-    border-left: none;
+    border: none;
     cursor: pointer;
+    border-radius: 8px;
 }
 
 form.search button:hover {
-    background: #16a6d1;
+    background: #a07878ad;
 }
 
 form.search::after {
@@ -73,16 +77,19 @@ form.search::after {
 .fieldset-form {
     margin-left: auto;
     margin-right: auto;
-    background-color: #4d4d67;
+    background-color: #484848;
     display: flex;
     border: none;
-    padding: 10%;
-    width: 25%;
+    padding: 1%;
+    width: 300px;
+    border-radius: 8px;
 }
 
 .page-title {
     font-family: sans-serif;
     color: snow;
+    margin-bottom:-13px;
+    text-align:center;
 }
 
 .imgTitle{
@@ -107,11 +114,12 @@ label {
     text-indent: -15px;
     font-family: sans-serif;
     font-size: 10px;
-    color: #9ba8e3;
+    color: #a07878;
 }
 
 ::placeholder {
-    color: #9ba8e3;
+    color: #a07878;
+    text-align: center;
 }
 
 .checkboxes label {
@@ -119,45 +127,54 @@ label {
     padding-bottom: 10px;
     padding-right: 10px;
     white-space: nowrap;
+    font-size: 13px;
 }
 
 .checkboxes input {
     vertical-align: middle;
+
 }
 
 .checkboxes label span {
     vertical-align: middle;
     position: relative;
+    padding-left: 10px;
 }
 
 .input-field {
     width: 100%;
-    background-color: #30334e;
-    border: 1px solid #9dc7e8;
-    color: #9dc7e8;
+    background-color: rgb(42, 42, 42);
+    border: none;
+    color: #d6aaaa;
     box-sizing: border-box;
     padding: 10px;
     margin-bottom: 10px;
     resize: vertical;
+    text-align: center;
+    border-radius: 8px;
 }
 
 .input-field:focus {
-    outline: 2px solid #16a6d1;
+    outline: 2px solid #5e7379;
 }
 
 .button {
     border-radius: 2px;
-    background-color: #16a6d1;
-    padding: 15px 15px;
+    background-color: #a07878;
+
     text-align: center;
     text-decoration: none;
     display: inline-block;
     border: none;
     color: white;
     font-weight: bold;
-    width: 100%;
+    width: 80%;
     position: relative;
     text-transform: uppercase;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    border-radius: 8px;
 }
 
 .button:hover {
@@ -182,7 +199,9 @@ label {
 .flexbox {
     columns: 250px;
     text-align:center;
-    margin: 5% 5%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 16px;
 }
 
 .comments-form {

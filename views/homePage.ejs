@@ -19,8 +19,8 @@
     <% } %>
 </div>
 
-<form class="search" method="POST">
-    <input type="text" placeholder="Search..." name="searchbar">
+<form class="search" method="POST" style="margin:auto;max-width:300px" autocomplete="off">
+    <input type="text" placeholder="Search..." name="searchbar" >
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 
@@ -31,7 +31,6 @@
         <div class="item"><a class="homeImg" href="<%= detail %>"> <img
                         src="<%= process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + data[i].photopath %>"
                         style="max-width: 100%;" alt=""> </a></div>
-        <% console.log(process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + data[i].photopath) %>
     <% }} %>
 </div>
 

@@ -27,19 +27,19 @@
     <form name="registration" method="POST" onsubmit="return validateRegistration()">
         <fieldset class="fieldset-form">
             <legend class="page-title">Register account</legend>
-            <label for="uname">User Name</label>
-            <input class="input-field" type="text" id="uname" required placeholder="Username" name="username"/>
+            <label for="uname"></label>
+            <input class="input-field" type="text" id="uname" required placeholder="Username" name="username" autocomplete="off"/>
 
-            <label for="email">Email</label>
-            <input class="input-field" type="email" id="email" required placeholder="Email" name="email"/>
+            <label for="email"></label>
+            <input class="input-field" type="email" id="email" required placeholder="Email" name="email" autocomplete="off"/>
 
-            <label for="psw">Password</label>
-            <input class="input-field" type="password" id="psw" required placeholder="Password" name="password" />
+            <label for="psw"></label>
+            <input class="input-field" type="password" id="psw" required placeholder="Password" name="password" autocomplete="off"/>
 
-            <label for="cpsw">Confirm Password</label>
-            <input class="input-field" type="password" id="cpsw" required placeholder="Confirm Password" name="inputcpsw"/>
+            <label for="cpsw"></label>
+            <input class="input-field" type="password" id="cpsw" required placeholder="Confirm Password" name="inputcpsw" autocomplete="off"/>
 
-            <div class="checkboxes">
+            <div class="checkboxes" style="display: inline-table;margin-left: auto;margin-right: auto;">
                 <label for="checkage"><input type="checkbox" id="checkage" required><span>I accept I am 13+ years of age.</span></label><br />
 
                 <label for="prules"><input type="checkbox" id="prules" required><span>I accept TOS and Privacy rules.</span></label><br />
