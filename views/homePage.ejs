@@ -19,8 +19,8 @@
     <% } %>
 </div>
 
-<form class="search" method="POST" style="margin:auto;max-width:300px" autocomplete="off">
-    <input type="text" placeholder="Search..." name="searchbar" >
+<form class="search" method="POST" style="margin:auto;max-width:300px" autocomplete="off" onsubmit="return validateSearch()">
+    <input type="text" placeholder="Search..." name="searchbar"id="searchtext" >
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 
@@ -34,6 +34,6 @@
     <% }} %>
 </div>
 
-
+<script type="text/javascript" src="../javascripts/formValidation.js"></script>
 </body>
 </html>

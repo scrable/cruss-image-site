@@ -100,3 +100,14 @@ validatePost = () => {
     let myJSON = JSON.stringify(path);
     console.log(myJSON);
     };
+
+validateSearch = () => {
+    var searchText = document.getElementById("searchtext");
+
+    if(searchText.value.length < 3){
+        alert("Please enter a search with more than 3 characters.");
+        searchText.focus();
+        return false;
+    }
+
+};

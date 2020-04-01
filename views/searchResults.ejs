@@ -18,8 +18,8 @@
     <% } %>
 </div>
 
-<form class="search" method="POST" style="margin:auto;max-width:300px" autocomplete="off">
-    <input type="text" placeholder="Search..." name="searchbar" >
+<form class="search" method="POST" style="margin:auto;max-width:300px" autocomplete="off" onsubmit="return validateSearch()">
+    <input type="text" placeholder="Search..." name="searchbar"id="searchtext" >
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 
@@ -27,12 +27,17 @@
     <%if(typeof data == 'object' && data && data.length) {
     for(var i = data.length - 1; i >= 0; i--) { %>
         <%var detail = "/imageDetails" + data[i].id%>
-        <div class="item"><a class="homeImg" href="<%=detail%>"> <img src="<%= data[i].photopath %>" style="max-width: 100%;" alt=""> </a></div>
-    <%}}%>
-
-
+        <div class="item"><a class="homeImg" href="<%=detail%>"> <img src="<%= process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + data[i].photopath %>" style="max-width: 100%;" alt=""> </a></div>
+    <%}} else{%>
 </div>
+    <div class="noSearchResults">
+        Nothing was found!
+    </div>
+    <%}%>
 
 
+
+
+<script type="text/javascript" src="../javascripts/formValidation.js"></script>
 </body>
 </html>
