@@ -1,9 +1,9 @@
 exports.list = function(req, res){
 
-var naptime = req.body.searchbar;
+var naptime = "%" + req.body.searchbar + "%";
 
-var sql1 = "SELECT * FROM `test2`.`imageposts` WHERE title=?";
-var sql2 = "SELECT * FROM `test2`.`imageposts` WHERE description=?";
+var sql1 = "SELECT * FROM `test2`.`imageposts` WHERE UPPER(title) LIKE ?";
+var sql2 = "SELECT * FROM `test2`.`imageposts` WHERE UPPER(description) LIKE ?";
     connection.query(sql1, [naptime],function(err,rows){
         if(err)
             console.log("Error Selecting : %s ",err );

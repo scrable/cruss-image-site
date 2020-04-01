@@ -229,3 +229,10 @@ label {
     margin-right:auto;
     margin-bottom: 20%;
 }
+
+.noSearchResults{
+    color: white;
+    text-align: center;
+    font-size: 32px;
+    font-family: sans-serif;
+}
