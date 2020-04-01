@@ -5,9 +5,10 @@
 validateUser = (string) => {
     if(string.length < 3){
         window.alert("Username must be 3 or more alphanumeric characters.");
-        string.focus();
+        document.getElementById("uname").focus();
         return false;
     }
+    else return true;
 };
 
 validateInput = (string, obj) => {
@@ -27,11 +28,13 @@ validateLogin = () => {
     let input = document.forms["login"]["username"].value;
     let psw = document.forms["login"]["password"].value;
 
-    validateUser(input);
+    var validated = validateUser(input);
+
+    if (!validated) return false;
 
     if(psw.length < 8) {
         window.alert("Password must be at least 8 characters long.");
-        psw.focus();
+        document.getElementById("psw").focus();
         return false;
     }
 
@@ -47,16 +50,18 @@ validateLogin = () => {
     It also verifies that the user confirms the password correctly.
  */
 validateRegistration = () => {
-    let input = document.forms["registration"]["username"].value;
-    let psw = document.forms["registration"]["inputpsw"].value;
-    let confirmpsw = document.forms["registration"]["inputcpsw"].value;
+    let input = document.forms["registration"]["uname"].value;
+    let psw = document.forms["registration"]["psw"].value;
+    let confirmpsw = document.forms["registration"]["cpsw"].value;
     var regex = /^(?=.*[0-9])(?=.*[*!@#$^&])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-    validateUser(input);
+    var validated = validateUser(input);
+
+    if (!validated) return false;
 
     if(!regex.test(psw)){
         alert("Password must be at least 8 characters long, contain at least one number, one uppercase and one special character");
-        psw.focus();
+        document.getElementById("psw").focus();
         return false;
     }
 
