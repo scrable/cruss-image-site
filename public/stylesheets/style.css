@@ -70,7 +70,7 @@ form.search::after {
 }
 
 .container {
-    margin: 140px 0;
+    margin-top: 10px;
     align-content: center;
 }
 
@@ -78,18 +78,19 @@ form.search::after {
     margin-left: auto;
     margin-right: auto;
     background-color: #484848;
-    display: flex;
     border: none;
-    padding: 1%;
     width: 300px;
     border-radius: 8px;
+    height: auto;
+    margin-top: 100px;
+
 }
 
 .page-title {
     font-family: sans-serif;
     color: snow;
-    margin-bottom:-13px;
-    text-align:center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .imgTitle{
@@ -107,14 +108,11 @@ form.search::after {
 
 label {
     display: inline-block;
-    padding-bottom: 5px;
-    padding-top: 10px;
-    float: left;
-    padding-left: 15px;
-    text-indent: -15px;
     font-family: sans-serif;
     font-size: 10px;
     color: #a07878;
+    vertical-align: middle;
+    padding-top: 8px;
 }
 
 ::placeholder {
@@ -123,11 +121,11 @@ label {
 }
 
 .checkboxes label {
-    display: block;
-    padding-bottom: 10px;
-    padding-right: 10px;
     white-space: nowrap;
     font-size: 13px;
+    vertical-align: middle;
+
+
 }
 
 .checkboxes input {
@@ -137,8 +135,7 @@ label {
 
 .checkboxes label span {
     vertical-align: middle;
-    position: relative;
-    padding-left: 10px;
+
 }
 
 .input-field {
@@ -159,20 +156,19 @@ label {
 }
 
 .button {
-    border-radius: 2px;
     background-color: #a07878;
-
     text-align: center;
     text-decoration: none;
     display: inline-block;
     border: none;
     color: white;
     font-weight: bold;
-    width: 80%;
+    width: 70%;
     position: relative;
     text-transform: uppercase;
-    margin-left: auto;
+    margin-left: 16%;
     margin-right: auto;
+    margin-top:10px;
     height: 40px;
     border-radius: 8px;
 }
