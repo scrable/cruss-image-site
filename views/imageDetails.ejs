@@ -20,14 +20,14 @@
 </div>
 
 <!--image-->
-<div class="imgContainer">
+<div class="imgContainer" >
 
     <div class="detailsImg"><img src="<%= process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + data[0].photopath %>" style="max-width: 50%" alt="">
     </div>
 
     <!--title-->
     <%var title = "" + data[0].title%>
-    <div >
+    <div>
         <p class="imgTitle">
              <%= title %>
         </p>
@@ -41,8 +41,19 @@
         </p>
     </div>
 
+    <div>
+        <p class="imgDescription">
+            <form id="edit" method="post" name="editpost2" onsubmit="return editpost()">
+                <input class="input-field" style="display: none; max-width: 400px; margin-left: auto; margin-right: auto;"
+                   type="text" id="ptitle" value="<%= title%>" name="title"/>
+                <input id="submitbutton" type="submit" value="Edit Post">
+            </form>
+
+        </p>
+    </div>
+
     <%if(isLoggedIn){%>
-    <form method="POST" name="postComment">
+    <form method="POST" name="postComment" onsubmit="return validateComment()">
         <fieldset class="comments-form">
             <label for="ptitle">Comment</label>
             <textarea class="input-field" id="comments" placeholder="Enter Comment" name="comment"></textarea>
@@ -70,9 +81,7 @@
 
 </div>
 
-
-
-
-
+<script type="text/javascript" src="../javascripts/formValidation.js"></script>
+<script type="text/javascript" src="../javascripts/editPost.js"></script>
 </body>
 </html>

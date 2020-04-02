@@ -1,8 +1,8 @@
 var express = require("express");
 var login = require('./routes/loginroutes');
-var postComment = require('./routes/postComment');
 var imageDetails = require('./routes/imagedetails');
 var searchResults = require('./routes/searchResults');
+var editpost = require('./routes/editpost');
 var bodyParser = require('body-parser');
 var path = require('path');
 var session = require('express-session');
@@ -184,7 +184,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
 });
 app.post('/homePage', searchResults.list);
 
-app.post('/imageDetails*', postComment.postcomment);
+app.post('/imageDetails*', editpost.edit);
 
 app.use('/login', function (err, req, res, next) {
     console.log(err);
