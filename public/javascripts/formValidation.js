@@ -111,3 +111,11 @@ validateSearch = () => {
     }
 
 };
+
+validateComment = () => {
+    var comment = document.getElementById("comments");
+
+    if(!comment.value.length){
+        return false;
+    }
+};
