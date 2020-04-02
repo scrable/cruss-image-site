@@ -11,14 +11,6 @@ validateUser = (string) => {
     else return true;
 };
 
-validateInput = (string, obj) => {
-    if(string === ''){
-        window.alert("Please enter a " + obj);
-        string.focus();
-        return false;
-    }
-};
-
 /*
     Function that validates the login of the new user.
     It requires the user to input a username with at least 3 characters and it also
@@ -74,6 +66,28 @@ validateRegistration = () => {
     console.log(myJSON);
 };
 
+validateTitle = () => {
+    let post_title = document.getElementById("ptitle");
+
+    if(post_title.value.length < 10){
+        alert("Please enter a title with at least 10 characters.");
+        post_title.focus();
+        return false;
+    }
+    return true;
+};
+
+validateDescription = () => {
+    let post_description = document.getElementById("pdescription");
+
+    if(post_description.value.length < 10){
+        alert("Please enter a description with at least 10 characters.");
+        post_description.focus();
+        return false;
+    }
+    return true;
+};
+
 /*
     This function validates when a registered user posts an image.
     It requires the user to enter text for the title and for the description;
@@ -81,24 +95,26 @@ validateRegistration = () => {
  */
 
 validatePost = () => {
-    let post_title = document.forms["postImage"]["title"].value;
-    let post_description = document.forms["postImage"]["description"].value;
-    let ele1 = "title";
-    let ele2 = "description";
     let image_file = document.getElementById('img');
     let path = image_file.value;
     let extensions = /(\.jpg|\.jpeg|\.png|\.bmp|\.gif)$/i;
 
-    validateInput(post_title, ele1);
-    validateInput(post_description, ele2);
-
-    if(!extensions.exec(path)){
-        alert("Not a valid image. Please upload images that are either jpg, png, bmp or gif");
+    if (!validateTitle())
+    {
         return false;
     }
 
-    let myJSON = JSON.stringify(path);
-    console.log(myJSON);
+    else if (!validateDescription())
+    {
+        return false;
+    }
+
+    else if(!extensions.exec(path)){
+        alert("Not a valid image. Please upload images that are either jpg, png, bmp or gif");
+        return false;
+    }
+    else return true;
+
     };
 
 validateSearch = () => {

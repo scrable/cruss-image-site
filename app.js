@@ -166,8 +166,6 @@ app.post('/login', login.login);
 app.post('/registration', login.registration, login.login);
 
 app.post('/postImage', upload.single('img'), function (req, res, next) {
-    console.log(req.body.title);
-    console.log(imgname);
     var imageInfo = {
         "title": req.body.title,
         "description": req.body.description,
