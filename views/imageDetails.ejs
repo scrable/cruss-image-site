@@ -41,6 +41,7 @@
         </p>
     </div>
 
+    <%if(isLoggedIn && (user_id === data[0].fk_userid)){%>
     <div>
         <p class="imgDescription">
             <form id="edit" method="post" name="editpost2" onsubmit="return editpost()">
@@ -52,6 +53,7 @@
 
         </p>
     </div>
+        <%}%>
 
     <%if(isLoggedIn){%>
     <form method="POST" name="postComment" onsubmit="return validateComment()">
