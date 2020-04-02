@@ -44,9 +44,10 @@
     <div>
         <p class="imgDescription">
             <form id="edit" method="post" name="editpost2" onsubmit="return editpost()">
-                <input class="input-field" style="display: none; max-width: 400px; margin-left: auto; margin-right: auto;"
+                <input class="input-field" style="display: none; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
                    type="text" id="ptitle" value="<%= title%>" name="title"/>
                 <input id="submitbutton" type="submit" value="Edit Post">
+                <input id="cancelbutton" type="submit" value="Cancel" style="display:none" onclick="return cancelEdit()">
             </form>
 
         </p>
