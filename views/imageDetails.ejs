@@ -19,15 +19,20 @@
     <% } %>
 </div>
 
+<form class="search" method="POST" style="margin:auto;max-width:300px; padding-left: 4px; margin-bottom: -82px;" autocomplete="off" onsubmit="return validateSearch()">
+    <input type="text" placeholder="Search..." name="searchbar"id="searchtext" >
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
 <!--image-->
-<div class="imgContainer">
+<div class="imgContainer" >
 
     <div class="detailsImg"><img src="<%= process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + data[0].photopath %>" style="max-width: 50%" alt="">
     </div>
 
     <!--title-->
     <%var title = "" + data[0].title%>
-    <div >
+    <div id="ititle">
         <p class="imgTitle">
              <%= title %>
         </p>
@@ -35,18 +40,32 @@
 
     <!--description-->
     <%var description = "" + data[0].description%>
-    <div >
+    <div id="idesc">
         <p class="imgDescription">
             <%= description %>
         </p>
     </div>
 
-    <%if(isLoggedIn){%>
-    <form method="POST" name="postComment">
-        <fieldset class="comments-form">
-            <label for="ptitle">Comment</label>
-            <textarea class="input-field" id="comments" placeholder="Enter Comment" name="comment"></textarea>
+    <%if(isLoggedIn && (user_id === data[0].fk_userid)){%>
+    <div>
+        <p class="imgDescription">
+            <form id="edit" method="post" name="editpost2" onsubmit="return editpost()">
+                <input class="input-field" autocomplete="off" style="display: none; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
+                   type="text" id="ptitle" value="<%= title%>" name="title"/>
+                <textarea class="input-field" style="display: none; font-family: sans-serif; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
+                   type="text" id="pdesc" name="description"><%= description%></textarea>
+                <input id="submitbutton" type="submit" value="Edit Post">
+                <input id="cancelbutton" type="submit" value="Cancel" style="display:none" onclick="return cancelEdit()">
+            </form>
 
+        </p>
+    </div>
+        <%}%>
+
+    <%if(isLoggedIn){%>
+    <form method="POST" name="postComment" onsubmit="return validateComment()">
+        <fieldset class="comments-form">
+            <textarea class="input-field" id="comments" style="font-family: sans-serif" placeholder="Enter Comment" name="comment"></textarea>
             <input class="button" type="submit" value="Submit">
         </fieldset>
     </form>
@@ -70,9 +89,7 @@
 
 </div>
 
-
-
-
-
+<script type="text/javascript" src="../javascripts/formValidation.js"></script>
+<script type="text/javascript" src="../javascripts/editPost.js"></script>
 </body>
 </html>

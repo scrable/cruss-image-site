@@ -27,11 +27,11 @@
     <form method="POST" name="postImage" onsubmit="return validatePost()" encType="multipart/form-data">
         <fieldset class="fieldset-form">
             <legend class="page-title">Post image</legend>
-            <label for="ptitle">Title</label>
-            <input class="input-field" type="text" id="ptitle" placeholder="Enter title" name="title" required/>
+            <label for="ptitle"></label>
+            <input class="input-field" autocomplete="off" type="text" id="ptitle" placeholder="Enter title" name="title" required/>
 
-            <label for="pdescription">Description</label>
-            <input class="input-field" type="text" id="pdescription" placeholder="Enter description" name="description" required/>
+            <label for="pdescription"></label>
+            <textarea class="input-field" style="font-family: sans-serif;" id="pdescription" placeholder="Enter description" name="description" required></textarea>
 
             <label for="img"></label>
             <input type="file" id="img" required alt="Post" class="upload-btn" name="img">

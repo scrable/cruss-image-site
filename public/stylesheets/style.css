@@ -104,6 +104,8 @@ form.search::after {
     font-family: sans-serif;
     color: snow;
     font-size: 18px;
+    margin-left: 35%;
+    margin-right:35%;
 }
 
 label {
@@ -193,7 +195,7 @@ label {
     margin-bottom: 4px;
 }
 .flexbox {
-    columns: 250px;
+    columns: 350px;
     text-align:center;
     margin-right: 10%;
     margin-left: 10%;

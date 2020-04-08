@@ -1,31 +1,31 @@
-var express = require("express");
-var login = require('./routes/loginroutes');
-var postComment = require('./routes/postComment');
-var imageDetails = require('./routes/imagedetails');
-var searchResults = require('./routes/searchResults');
-var bodyParser = require('body-parser');
-var path = require('path');
-var session = require('express-session');
-var multer = require('multer');
-var multerS3 = require('multer-s3');
-var AWS = require('aws-sdk');
-var router = express.Router();
+const express = require("express");
+const login = require('./routes/loginroutes');
+const imageDetails = require('./routes/imagedetails');
+const searchResults = require('./routes/searchResults');
+const editpost = require('./routes/editpost');
+const bodyParser = require('body-parser');
+const path = require('path');
+const session = require('express-session');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
+const router = express.Router();
 global["imgname"] = "";
 global["isLoggedIn"] = false;
-var app = express();
+const app = express();
 
 if(process.env.ENABLE_HTTPS === 'true') {
-    var enforce = require('express-sslify');
+    const enforce = require('express-sslify');
     app.use(enforce.HTTPS({trustProtoHeader: true}));
 }
 
-var s3 = new AWS.S3({
+const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_BUCKET_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_BUCKET_SECRET_ACCESS_KEY,
     region: 'us-east-1',
 });
 
-var upload = multer({
+const upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: process.env.AWS_BUCKET_NAME,
@@ -166,8 +166,6 @@ app.post('/login', login.login);
 app.post('/registration', login.registration, login.login);
 
 app.post('/postImage', upload.single('img'), function (req, res, next) {
-    console.log(req.body.title);
-    console.log(imgname);
     var imageInfo = {
         "title": req.body.title,
         "description": req.body.description,
@@ -184,7 +182,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
 });
 app.post('/homePage', searchResults.list);
 
-app.post('/imageDetails*', postComment.postcomment);
+app.post('/imageDetails*', editpost.edit);
 
 app.use('/login', function (err, req, res, next) {
     console.log(err);
