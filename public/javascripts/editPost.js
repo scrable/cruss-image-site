@@ -44,8 +44,8 @@ validateDescription = () => {
 validateTitle = () => {
     var ptitle = document.getElementById("ptitle");
 
-    if(ptitle.value.length < 1){
-        alert("Please enter a title.");
+    if(ptitle.value.length < 3){
+        alert("Please enter a title with at least 3 characters.");
         ptitle.focus();
         return false;
     }
