@@ -193,13 +193,20 @@ label {
 .item {
     margin-left: -10px;
     margin-bottom: 4px;
+    transition: all .2s ease;
+}
+.item:hover{
+    transform: scale(1.1);
+    z-index: 99;
+    position: relative;
 }
 .flexbox {
     columns: 350px;
     text-align:center;
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 200px;
+    margin-left: 200px;
     margin-top: 16px;
+    overflow: auto;
 }
 
 .comments-form {
