@@ -40,7 +40,7 @@
 
     <!--description-->
     <%var description = "" + data[0].description%>
-    <div >
+    <div id="idesc">
         <p class="imgDescription">
             <%= description %>
         </p>
@@ -52,6 +52,8 @@
             <form id="edit" method="post" name="editpost2" onsubmit="return editpost()">
                 <input class="input-field" style="display: none; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
                    type="text" id="ptitle" value="<%= title%>" name="title"/>
+                <textarea class="input-field" style="display: none; font-family: sans-serif; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
+                   type="text" id="pdesc" name="description"><%= description%></textarea>
                 <input id="submitbutton" type="submit" value="Edit Post">
                 <input id="cancelbutton" type="submit" value="Cancel" style="display:none" onclick="return cancelEdit()">
             </form>
@@ -63,8 +65,8 @@
     <%if(isLoggedIn){%>
     <form method="POST" name="postComment" onsubmit="return validateComment()">
         <fieldset class="comments-form">
-            <label for="ptitle">Comment</label>
-            <textarea class="input-field" id="comments" placeholder="Enter Comment" name="comment"></textarea>
+            <label for="ptitle"></label>
+            <textarea class="input-field" id="comments" style="font-family: sans-serif" placeholder="Enter Comment" name="comment"></textarea>
 
             <input class="button" type="submit" value="Submit">
         </fieldset>
