@@ -26,8 +26,19 @@ editpost = () => {
     else {
         ptitle.style.display="block";
         pdesc.style.display="block";
-        return validateTitle();
+        return (validateTitle() && validateDescription());
     }
+};
+
+validateDescription = () => {
+    let post_description = document.getElementById("pdesc");
+
+    if(post_description.value.length < 10){
+        alert("Please enter a description with at least 10 characters.");
+        post_description.focus();
+        return false;
+    }
+    return true;
 };
 
 validateTitle = () => {
