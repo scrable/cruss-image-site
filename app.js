@@ -8,6 +8,7 @@ const path = require('path');
 const session = require('express-session');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const sizesOf = require('image-size');
 const AWS = require('aws-sdk');
 const router = express.Router();
 global["imgname"] = "";
@@ -166,19 +167,46 @@ app.post('/login', login.login);
 app.post('/registration', login.registration, login.login);
 
 app.post('/postImage', upload.single('img'), function (req, res, next) {
-    var imageInfo = {
-        "title": req.body.title,
-        "description": req.body.description,
-        "fk_userid": req.session.user,
-        "active": "1",
-        "photopath": imgname,
-    };
-    connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
-        if (error) {
-            console.log("error ocurred", error);
-        }
+
+    var url = require('url');
+    var https = require('https');
+
+    var sizeOf = require('image-size');
+
+    var imgUrl = process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + imgname;
+    var options = url.parse(imgUrl);
+
+
+    https.get(options, function (response) {
+        var chunks = [];
+        response.on('data', function (chunk) {
+            chunks.push(chunk);
+        }).on('end', function() {
+            var buffer = Buffer.concat(chunks);
+            var dimensions = sizeOf(buffer);
+            console.log(dimensions);
+
+            var imageInfo = {
+                "title": req.body.title,
+                "description": req.body.description,
+                "fk_userid": req.session.user,
+                "active": "1",
+                "photopath": imgname,
+                "photowidth": dimensions.width,
+                "photoheight": dimensions.height
+            };
+
+            connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
+                if (error) {
+                    console.log("error ocurred", error);
+                }
+            });
+            res.redirect('/homePage');
+        });
     });
-    res.redirect('/homePage');
+
+
+
 });
 app.post('/homePage', searchResults.list);
 
