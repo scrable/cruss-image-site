@@ -23,11 +23,25 @@
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 
-<div class="flexbox">
-    <%if(typeof data == 'object' && data && data.length) {
+<div class="flexbox grid">
+    <% if(typeof data == 'object' && data && data.length) {
     for(var i = data.length - 1; i >= 0; i--) { %>
-        <%var detail = "/imageDetails" + data[i].id%>
-        <div class="item"><a class="homeImg" href="<%=detail%>"> <img src="<%= 'https://i.squarestory.net/' + data[0].photopath %>" style="max-width: 100%;" alt=""> </a></div>
+        <% var detail = "/imageDetails" + data[i].id %>
+        <div class="grid-item"><a class="homeImg" href="<%= detail %>">
+                <img
+                        class="lazy"
+                <%if(data[i].photowidth >= 450){%>
+                    <%var wide = 450 / data[i].photowidth%>
+                        height="<%= data[i].photoheight * (wide)%>"
+                        width="<%= 450%>"
+                <%}else{%>
+                    <%var high = data[i].photowidth / 450%>
+                        height="<%= data[i].photoheight / (high)%>"
+                        width="<%= 450%>"
+                        <%}%>
+                        data-src="<%= 'https://i.squarestory.net/' + data[i].photopath %>"
+                        style="" alt="">
+            </a></div>
     <%}} else{%>
 </div>
     <div class="noSearchResults">
@@ -37,7 +51,10 @@
 
 
 
-
+<script src="../javascripts/masonrySource.js"></script>
+<script src="../javascripts/masonry.js"></script>
+<script src="../javascripts/lazyloadSource.js"></script>
+<script src="../javascripts/lazyload.js"></script>
 <script type="text/javascript" src="../javascripts/formValidation.js"></script>
 </body>
 </html>
