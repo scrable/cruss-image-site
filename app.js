@@ -11,7 +11,7 @@ const multerS3 = require('multer-s3');
 const sizesOf = require('image-size');
 const AWS = require('aws-sdk');
 const router = express.Router();
-global["imgname"] = "";
+global["photopath"] = "";
 global["isLoggedIn"] = false;
 const app = express();
 
@@ -33,8 +33,9 @@ const upload = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: 'public-read',
         key: function (req, file, cb) {
-            imgname = "public/" + Date.now().toString() + file.originalname;
-            cb(null, imgname)
+            photopath = Date.now().toString() + file.originalname;
+            var s3photopath = "public/" + photopath;
+            cb(null, s3photopath)
         }
     })
 });
@@ -173,7 +174,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
 
     var sizeOf = require('image-size');
 
-    var imgUrl = process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + imgname;
+    var imgUrl = "https://i.squarestory.net/" + photopath;//process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + imgname;
     var options = url.parse(imgUrl);
 
 
@@ -191,7 +192,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "description": req.body.description,
                 "fk_userid": req.session.user,
                 "active": "1",
-                "photopath": imgname,
+                "photopath": photopath,
                 "photowidth": dimensions.width,
                 "photoheight": dimensions.height
             };
