@@ -46,25 +46,10 @@
     <% }} %>
 </div>
 
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script>
-    var elem = document.querySelector('.grid');
-    var msnry = new Masonry( elem, {
-        itemSelector: '.grid-item',
-        columnWidth: 450,
-        fitWidth: true,
-        horizontalOrder: true,
-        gutter: 4
-    });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@15.1.1/dist/lazyload.min.js"></script>
-<script>
-    const myLazyLoad = new LazyLoad({
-        elements_selector: ".lazy"
-    });
-</script>
-
+<script src="../javascripts/masonrySource.js"></script>
+<script src="../javascripts/masonry.js"></script>
+<script src="../javascripts/lazyloadSource.js"></script>
+<script src="../javascripts/lazyload.js"></script>
 <script type="text/javascript" src="../javascripts/formValidation.js"></script>
 </body>
 </html>
