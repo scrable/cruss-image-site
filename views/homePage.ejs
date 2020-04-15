@@ -40,7 +40,7 @@
                     height="<%= data[i].photoheight / (high)%>"
                     width="<%= 450%>"
                 <%}%>
-                data-src="<%= process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + data[i].photopath %>"
+                data-src="<%= 'https://i.squarestory.net/' + data[i].photopath %>"
                 style="" alt="">
         </a></div>
     <% }} %>
