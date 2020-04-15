@@ -25,8 +25,6 @@ You will need:
 #### 2. AWS bucket secret key - name this `AWS_BUCKET_SECRET_ACCESS_KEY`
 
 #### 3. AWS bucket access key id - name this `AWS_BUCKET_ACCESS_KEY_ID`
-
-#### 4. AWS bucket public URL - name this `AWS_BUCKET_GETBUCKET_PUBLIC_NAME` - note that this has the following format: https://<your-bucket-name>.s3.<your-region>.amazonaws.com without the square brackets around name and region.
   
 ## For the database
 
