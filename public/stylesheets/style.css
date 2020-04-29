@@ -215,13 +215,15 @@ label {
 }
 
 .comments-form {
-    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    /* margin-left: auto;
     margin-right: auto;
     display: flex;
-    border: none;
     padding: 10%;
     width: 50%;
-    margin-bottom: -200px;
+    margin-bottom: -200px; */
 }
 
 .comment{

@@ -3,7 +3,7 @@ exports.postcomment = function (req, res) {
     global["paths"] = g.substring(13, g.length);
     var t = parseInt(paths);
 
-    if(req.session.user && req.body.comment) {
+    if (req.session.user && req.body.comment) {
         connection.query('SELECT * FROM `test2`.`users` WHERE id=?;', req.session.user, function (error, result) {
             if (error) {
                 console.log("error ocurred", error);
@@ -14,6 +14,7 @@ exports.postcomment = function (req, res) {
                     "fk_userid": req.session.user,
                     "fk_postid": t,
                     "poster": result[0].username,
+                    "postdate": new Date()
                 };
 
                 connection.query('INSERT INTO comments SET ?;', commentInfo, function (error) {

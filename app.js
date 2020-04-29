@@ -15,9 +15,9 @@ global["photopath"] = "";
 global["isLoggedIn"] = false;
 const app = express();
 
-if(process.env.ENABLE_HTTPS === 'true') {
+if (process.env.ENABLE_HTTPS === 'true') {
     const enforce = require('express-sslify');
-    app.use(enforce.HTTPS({trustProtoHeader: true}));
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
 
 const s3 = new AWS.S3({
@@ -60,9 +60,9 @@ app.set('view engine', 'ejs');
 
 app.use(session({
     secret: 'greetings', saveUninitialized: false, resave: true,
-    cookie: {maxAge: 60000000, httpOnly: true, secure: false}
+    cookie: { maxAge: 60000000, httpOnly: true, secure: false }
 }));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -75,21 +75,21 @@ app.get('/', function (req, res) {
 });
 
 app.get('/login', checkLogin, function (req, res, next) {
-    res.render('login', {isLoggedIn: isLoggedIn});
+    res.render('login', { isLoggedIn: isLoggedIn });
 });
 
 app.get('/registration', checkRegistration, function (req, res, next) {
-    res.render('registration', {isLoggedIn: isLoggedIn});
+    res.render('registration', { isLoggedIn: isLoggedIn });
 });
 
 app.get('/logout', checkLogout, function (req, res) {
     isLoggedIn = false;
-    res.render('logout', {isLoggedIn: isLoggedIn});
+    res.render('logout', { isLoggedIn: isLoggedIn });
 
 });
 
 app.get('/postImage', checkSignIn, function (req, res) {
-    res.render('postImage', {isLoggedIn: isLoggedIn});
+    res.render('postImage', { isLoggedIn: isLoggedIn });
 });
 
 app.get('/imageDetails*', imageDetails.details);
@@ -101,7 +101,7 @@ app.get('/homePage', function (req, res) {
     connection.query('SELECT * FROM `test2`.`imageposts`;', function (err, rows) {
         if (err)
             console.log("Error Selecting : %s ", err);
-        res.render('homePage', {page_title: "Test Table", data: rows, isLoggedIn: isLoggedIn});
+        res.render('homePage', { page_title: "Test Table", data: rows, isLoggedIn: isLoggedIn });
     });
 });
 
@@ -141,23 +141,23 @@ function checkLogout(req, res, next) {
         next(err);
     }
 }
-app.get('/homePage.html', function(req, res){
+app.get('/homePage.html', function (req, res) {
     res.redirect('/homePage');
 });
 
-app.get('/login.html', function(req, res){
+app.get('/login.html', function (req, res) {
     res.redirect('/login');
 });
 
-app.get('/logout.html', function(req, res){
+app.get('/logout.html', function (req, res) {
     res.redirect('/logout');
 });
 
-app.get('/registration.html', function(req, res){
+app.get('/registration.html', function (req, res) {
     res.redirect('/registration');
 });
 
-app.get('/postImage.html', function(req, res){
+app.get('/postImage.html', function (req, res) {
     res.redirect('/postImage');
 });
 
@@ -182,7 +182,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
         var chunks = [];
         response.on('data', function (chunk) {
             chunks.push(chunk);
-        }).on('end', function() {
+        }).on('end', function () {
             var buffer = Buffer.concat(chunks);
             var dimensions = sizeOf(buffer);
             console.log(dimensions);
@@ -194,7 +194,8 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "active": "1",
                 "photopath": photopath,
                 "photowidth": dimensions.width,
-                "photoheight": dimensions.height
+                "photoheight": dimensions.height,
+                "postdate": new Date()
             };
 
             connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
@@ -209,6 +210,11 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
 
 
 });
+app.get("/tables", function (req, res) {
+    connection.query("SELECT * FROM imageposts", function (err, result) {
+        console.log(result)
+    })
+})
 app.post('/homePage', searchResults.list);
 
 app.post('/imageDetails*', editpost.edit);

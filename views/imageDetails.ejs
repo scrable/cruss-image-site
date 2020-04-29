@@ -1,95 +1,111 @@
 <html>
+
 <body>
-<link rel="stylesheet" href="/stylesheets/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="navbar">
-    <a class="active" href="homePage">Home</a>
-    <% if(!isLoggedIn) { %>
+    <div class="navbar">
+        <a class="active" href="homePage">Home</a>
+        <% if(!isLoggedIn) { %>
         <a id="login" href="login">Log In</a>
-    <% } %>
-    <% if(isLoggedIn){ %>
+        <% } %>
+        <% if(isLoggedIn){ %>
         <a id="logout" href="logout">Log Out</a>
-    <% } %>
-    <% if(!isLoggedIn){ %>
+        <% } %>
+        <% if(!isLoggedIn){ %>
         <a id="signup" href="registration">Sign Up</a>
-    <% } %>
-    <% if(isLoggedIn){ %>
+        <% } %>
+        <% if(isLoggedIn){ %>
         <a id="postimg" href="postImage">Post Image</a>
-    <% } %>
-</div>
-
-<form action="/homePage" class="search" method="POST" style="margin:auto;max-width:300px; padding-left: 4px; margin-bottom: -82px;" autocomplete="off" onsubmit="return validateSearch()">
-    <input type="text" placeholder="Search..." name="searchbar"id="searchtext" >
-    <button type="submit"><i class="fa fa-search"></i></button>
-</form>
-
-<!--image-->
-<div class="imgContainer" >
-
-    <div class="detailsImg"><img src="<%= 'https://i.squarestory.net/' + data[0].photopath %>" style="max-width: 50%" alt="">
+        <% } %>
     </div>
 
-    <!--title-->
-    <%var title = "" + data[0].title%>
-    <div id="ititle">
-        <p class="imgTitle">
-             <%= title %>
-        </p>
-    </div>
+    <form action="/homePage" class="search" method="POST"
+        style="margin:auto;max-width:300px; padding-left: 4px; margin-bottom: -82px;" autocomplete="off"
+        onsubmit="return validateSearch()">
+        <input type="text" placeholder="Search..." name="searchbar" id="searchtext">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
 
-    <!--description-->
-    <%var description = "" + data[0].description%>
-    <div id="idesc">
-        <p class="imgDescription">
-            <%= description %>
-        </p>
-    </div>
+    <!--image-->
+    <div class="imgContainer">
 
-    <%if(isLoggedIn && (user_id === data[0].fk_userid)){%>
-    <div>
-        <p class="imgDescription">
-            <form id="edit" method="post" name="editpost2" onsubmit="return editpost()">
-                <input class="input-field" autocomplete="off" style="display: none; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
-                   type="text" id="ptitle" value="<%= title%>" name="title"/>
-                <textarea class="input-field" style="display: none; font-family: sans-serif; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
-                   type="text" id="pdesc" name="description"><%= description%></textarea>
-                <input class="button" style="max-width: 90px; max-height: 30px; margin-left: auto; margin-right: auto;" id="submitbutton" type="submit" value="Edit Post">
-                <input class="button" style="max-width: 90px; max-height: 30px; margin-left: auto; margin-right: auto; display:none" id="cancelbutton" type="submit" value="Cancel" onclick="return cancelEdit()">
-            </form>
+        <div class="detailsImg"><img src="<%= 'https://i.squarestory.net/' + data[0].photopath %>"
+                style="max-width: 50%" alt="">
+        </div>
 
-        </p>
-    </div>
+        <!--title-->
+        <%var title = "" + data[0].title%>
+        <div id="ititle">
+            <p class="imgTitle">
+                <%= title %>
+            </p>
+            <p class="imgDescription"><%= data[0].postdate %></p>
+        </div>
+
+        <!--description-->
+        <%var description = "" + data[0].description%>
+        <div id="idesc">
+            <p class="imgDescription">
+                <%= description %>
+            </p>
+
+        </div>
+
+        <%if(isLoggedIn && (user_id === data[0].fk_userid)){%>
+        <div>
+            <p class="imgDescription">
+                <form id="edit" method="post" name="editpost2" onsubmit="return editpost()">
+                    <input class="input-field" autocomplete="off"
+                        style="display: none; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
+                        type="text" id="ptitle" value="<%= title%>" name="title" />
+                    <textarea class="input-field"
+                        style="display: none; font-family: sans-serif; max-width: 400px; margin-left: auto; margin-right: auto; outline: 2px solid #5e7379; "
+                        type="text" id="pdesc" name="description"><%= description%></textarea>
+                    <input class="button"
+                        style="max-width: 90px; max-height: 30px; margin-left: auto; margin-right: auto;"
+                        id="submitbutton" type="submit" value="Edit Post">
+                    <input class="button"
+                        style="max-width: 90px; max-height: 30px; margin-left: auto; margin-right: auto; display:none"
+                        id="cancelbutton" type="submit" value="Cancel" onclick="return cancelEdit()">
+                </form>
+
+            </p>
+        </div>
         <%}%>
 
     <%if(isLoggedIn){%>
-    <form method="POST" name="postComment" onsubmit="return validateComment()">
-        <fieldset class="comments-form">
-            <textarea class="input-field" id="comments" style="font-family: sans-serif; max-width: 400px; margin-left: auto; margin-right: auto;" placeholder="Enter Comment" name="comment"></textarea>
-            <input class="button" style="max-width: 300px; margin-left: auto; margin-right: auto;" type="submit" value="Submit">
-        </fieldset>
-    </form>
-    <%}%>
+        <form method="POST" name="postComment" onsubmit="return validateComment()">
+            <fieldset class="comments-form">
+                <textarea class="input-field" id="comments"
+                    style="font-family: sans-serif; max-width: 400px; margin-left: auto; margin-right: auto;"
+                    placeholder="Enter Comment" name="comment"></textarea>
+                <input class="button" style="max-width: 300px; margin-left: auto; margin-right: auto;" type="submit"
+                    value="Submit">
+            </fieldset>
+        </form>
+        <%}%>
 
 
     <div class="commentContainer">
         <%if(typeof cmnts == 'object' && cmnts.length) {
             for(var i = cmnts.length - 1; i >= 0; i--) { %>
-                <%var comment = "" + cmnts[i].comment%>
-                <%var user = "" + cmnts[i].poster%>
-
-                <p class="comment-poster">
-                    <%= user %>
-                </p>
-                <p class="comment">
-                    <%= comment %>
-                </p>
+        <%var comment = "" + cmnts[i].comment%>
+        <%var user = "" + cmnts[i].poster%>
+        <%var postDate = "" + cmnts[i].postdate%>
+        <p class="comment-poster">
+            <%= user %>: at <%= postDate %>
+        </p>
+        <p class="comment">
+            <%= comment %>
+        </p>
         <%}}%>
     </div>
 
-</div>
+    </div>
 
-<script type="text/javascript" src="../javascripts/formValidation.js"></script>
-<script type="text/javascript" src="../javascripts/editPost.js"></script>
+    <script type="text/javascript" src="../javascripts/formValidation.js"></script>
+    <script type="text/javascript" src="../javascripts/editPost.js"></script>
 </body>
+
 </html>
