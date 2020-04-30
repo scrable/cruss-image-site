@@ -10,14 +10,15 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const sizesOf = require('image-size');
 const AWS = require('aws-sdk');
+const date = require('date-and-time');
 const router = express.Router();
 global["photopath"] = "";
 global["isLoggedIn"] = false;
 const app = express();
 
-if(process.env.ENABLE_HTTPS === 'true') {
+if (process.env.ENABLE_HTTPS === 'true') {
     const enforce = require('express-sslify');
-    app.use(enforce.HTTPS({trustProtoHeader: true}));
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
 
 const s3 = new AWS.S3({
@@ -60,9 +61,9 @@ app.set('view engine', 'ejs');
 
 app.use(session({
     secret: 'greetings', saveUninitialized: false, resave: true,
-    cookie: {maxAge: 60000000, httpOnly: true, secure: false}
+    cookie: { maxAge: 60000000, httpOnly: true, secure: false }
 }));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -75,21 +76,21 @@ app.get('/', function (req, res) {
 });
 
 app.get('/login', checkLogin, function (req, res, next) {
-    res.render('login', {isLoggedIn: isLoggedIn});
+    res.render('login', { isLoggedIn: isLoggedIn });
 });
 
 app.get('/registration', checkRegistration, function (req, res, next) {
-    res.render('registration', {isLoggedIn: isLoggedIn});
+    res.render('registration', { isLoggedIn: isLoggedIn });
 });
 
 app.get('/logout', checkLogout, function (req, res) {
     isLoggedIn = false;
-    res.render('logout', {isLoggedIn: isLoggedIn});
+    res.render('logout', { isLoggedIn: isLoggedIn });
 
 });
 
 app.get('/postImage', checkSignIn, function (req, res) {
-    res.render('postImage', {isLoggedIn: isLoggedIn});
+    res.render('postImage', { isLoggedIn: isLoggedIn });
 });
 
 app.get('/imageDetails*', imageDetails.details);
@@ -101,7 +102,7 @@ app.get('/homePage', function (req, res) {
     connection.query('SELECT * FROM `test2`.`imageposts`;', function (err, rows) {
         if (err)
             console.log("Error Selecting : %s ", err);
-        res.render('homePage', {page_title: "Test Table", data: rows, isLoggedIn: isLoggedIn});
+        res.render('homePage', { page_title: "Test Table", data: rows, isLoggedIn: isLoggedIn });
     });
 });
 
@@ -141,26 +142,25 @@ function checkLogout(req, res, next) {
         next(err);
     }
 }
-app.get('/homePage.html', function(req, res){
+app.get('/homePage.html', function (req, res) {
     res.redirect('/homePage');
 });
 
-app.get('/login.html', function(req, res){
+app.get('/login.html', function (req, res) {
     res.redirect('/login');
 });
 
-app.get('/logout.html', function(req, res){
+app.get('/logout.html', function (req, res) {
     res.redirect('/logout');
 });
 
-app.get('/registration.html', function(req, res){
+app.get('/registration.html', function (req, res) {
     res.redirect('/registration');
 });
 
-app.get('/postImage.html', function(req, res){
+app.get('/postImage.html', function (req, res) {
     res.redirect('/postImage');
 });
-
 
 //get some posts
 app.post('/login', login.login);
@@ -177,15 +177,16 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
     var imgUrl = "https://i.squarestory.net/" + photopath;//process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + imgname;
     var options = url.parse(imgUrl);
 
-
     https.get(options, function (response) {
         var chunks = [];
         response.on('data', function (chunk) {
             chunks.push(chunk);
-        }).on('end', function() {
+        }).on('end', function () {
             var buffer = Buffer.concat(chunks);
             var dimensions = sizeOf(buffer);
             console.log(dimensions);
+            const now = new Date();
+            var formattedDate = date.format(now, 'YYYY/MM/DD HH:mm');
 
             var imageInfo = {
                 "title": req.body.title,
@@ -194,7 +195,8 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "active": "1",
                 "photopath": photopath,
                 "photowidth": dimensions.width,
-                "photoheight": dimensions.height
+                "photoheight": dimensions.height,
+                "postdate": formattedDate
             };
 
             connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
@@ -205,9 +207,6 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
             res.redirect('/homePage');
         });
     });
-
-
-
 });
 app.post('/homePage', searchResults.list);
 
