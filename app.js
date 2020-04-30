@@ -10,6 +10,7 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const sizesOf = require('image-size');
 const AWS = require('aws-sdk');
+const date = require('date-and-time');
 const router = express.Router();
 global["photopath"] = "";
 global["isLoggedIn"] = false;
@@ -161,7 +162,6 @@ app.get('/postImage.html', function (req, res) {
     res.redirect('/postImage');
 });
 
-
 //get some posts
 app.post('/login', login.login);
 
@@ -177,7 +177,6 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
     var imgUrl = "https://i.squarestory.net/" + photopath;//process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + imgname;
     var options = url.parse(imgUrl);
 
-
     https.get(options, function (response) {
         var chunks = [];
         response.on('data', function (chunk) {
@@ -186,6 +185,8 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
             var buffer = Buffer.concat(chunks);
             var dimensions = sizeOf(buffer);
             console.log(dimensions);
+            const now = new Date();
+            var formattedDate = date.format(now, 'YYYY/MM/DD HH:mm');
 
             var imageInfo = {
                 "title": req.body.title,
@@ -195,7 +196,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "photopath": photopath,
                 "photowidth": dimensions.width,
                 "photoheight": dimensions.height,
-                "postdate": new Date()
+                "postdate": formattedDate
             };
 
             connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
@@ -206,15 +207,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
             res.redirect('/homePage');
         });
     });
-
-
-
 });
-app.get("/tables", function (req, res) {
-    connection.query("SELECT * FROM imageposts", function (err, result) {
-        console.log(result)
-    })
-})
 app.post('/homePage', searchResults.list);
 
 app.post('/imageDetails*', editpost.edit);
