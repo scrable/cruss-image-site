@@ -185,7 +185,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
             console.log(dimensions);
 
             var today = new Date();
-            var todayUTC = today.getUTCDate();
+            var todayUTC = today.toUTCString();
 
             var imageInfo = {
                 "title": req.body.title,
