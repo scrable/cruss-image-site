@@ -184,9 +184,6 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
             var dimensions = sizeOf(buffer);
             console.log(dimensions);
 
-            var today = new Date();
-            var todayUTC = today.toUTCString();
-
             var imageInfo = {
                 "title": req.body.title,
                 "description": req.body.description,
@@ -195,7 +192,6 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "photopath": photopath,
                 "photowidth": dimensions.width,
                 "photoheight": dimensions.height,
-                "postdate": todayUTC
             };
 
             connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {

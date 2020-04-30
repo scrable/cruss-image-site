@@ -42,9 +42,9 @@
             </p>
 
             <p class="imgDescription">
-                <%if(data[0].postdate){%>
-                <% var date = new Date(data[0].postdate)%>
-                <%= data[0].postdate%>
+                <%if(data[0].posttime){%>
+                <% var date = new Date(data[0].posttime)%>
+                <%= data[0].posttime%>
                 <%}%>
             </p>
         </div>
@@ -98,7 +98,7 @@
             for(var i = cmnts.length - 1; i >= 0; i--) { %>
         <%var comment = "" + cmnts[i].comment%>
         <%var user = "" + cmnts[i].poster%>
-        <%var postDate = "" + cmnts[i].postdate%>
+        <%var postDate = "" + cmnts[i].posttime%>
         <p class="comment-poster">
             <%= user %>: at <%= postDate %>
         </p>

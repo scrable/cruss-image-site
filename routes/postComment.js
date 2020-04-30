@@ -12,15 +12,11 @@ exports.postcomment = function (req, res) {
             }
             if (result.length > 0) {
 
-                const now = new Date();
-                var formattedDate = date.format(now, 'YYYY/MM/DD HH:mm');
-
                 var commentInfo = {
                     "comment": req.body.comment,
                     "fk_userid": req.session.user,
                     "fk_postid": t,
                     "poster": result[0].username,
-                    "postdate": formattedDate
                 };
 
                 connection.query('INSERT INTO comments SET ?;', commentInfo, function (error) {
