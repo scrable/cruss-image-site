@@ -40,7 +40,23 @@
             <p class="imgTitle">
                 <%= title %>
             </p>
-            <p class="imgDescription"><%= data[0].postdate %></p>
+
+            <p class="imgDescription">
+                <%if(data[0].postdate){%>
+            <% var date = new Date(data[0].postdate)%>
+                <%console.log( date)%>
+                <% var localTime = new Date()%>
+                <%date.setUTCHours(date.getUTCHours() - localTime.getTimezoneOffset() / 60)%>
+
+
+                <%= date.getUTCFullYear() + "-"
+                + ("0" + (date.getUTCMonth() + 1).toString()).slice(-2) + "-"
+                + ("0" + date.getUTCDate().toString()).slice(-2) + " "
+                + ("0" + date.getUTCHours().toString()).slice(-2) + ":"
+                + ("0" + date.getUTCMinutes().toString()).slice(-2)
+                %>
+                <%}%>
+            </p>
         </div>
 
         <!--description-->

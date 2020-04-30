@@ -8,9 +8,7 @@ const path = require('path');
 const session = require('express-session');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const sizesOf = require('image-size');
 const AWS = require('aws-sdk');
-const date = require('date-and-time');
 const router = express.Router();
 global["photopath"] = "";
 global["isLoggedIn"] = false;
@@ -185,8 +183,9 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
             var buffer = Buffer.concat(chunks);
             var dimensions = sizeOf(buffer);
             console.log(dimensions);
-            const now = new Date();
-            var formattedDate = date.format(now, 'YYYY/MM/DD HH:mm');
+
+            var today = new Date();
+            var todayUTC = today.getUTCDate();
 
             var imageInfo = {
                 "title": req.body.title,
@@ -196,7 +195,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "photopath": photopath,
                 "photowidth": dimensions.width,
                 "photoheight": dimensions.height,
-                "postdate": formattedDate
+                "postdate": todayUTC
             };
 
             connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
