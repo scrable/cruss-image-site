@@ -84,7 +84,7 @@
                         id="cancelbutton" type="submit" value="Cancel" onclick="return cancelEdit()">
                 </form>
 
-            <form action="/deletePost<%=data[0].id%>" id="delete" method="post" name="deletepost">
+            <form action="/deletePost<%=data[0].id%>" id="delete" method="post" name="deletepost" onclick="return deletePost()">
                 <input class="button"
                        style="max-width: 90px; max-height: 30px; margin-left: auto; margin-right: auto;"
                        id="submitbutton" type="submit" value="Delete">
@@ -152,6 +152,7 @@
 
     <script type="text/javascript" src="../javascripts/formValidation.js"></script>
     <script type="text/javascript" src="../javascripts/editPost.js"></script>
+    <script type="text/javascript" src="../javascripts/deletePost.js"></script>
 
 </body>
 
