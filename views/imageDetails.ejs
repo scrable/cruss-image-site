@@ -84,6 +84,11 @@
                         id="cancelbutton" type="submit" value="Cancel" onclick="return cancelEdit()">
                 </form>
 
+            <form action="/deletePost<%=data[0].id%>" id="delete" method="post" name="deletepost">
+                <input class="button"
+                       style="max-width: 90px; max-height: 30px; margin-left: auto; margin-right: auto;"
+                       id="submitbutton" type="submit" value="Delete">
+            </form>
             </p>
         </div>
         <%}%>
