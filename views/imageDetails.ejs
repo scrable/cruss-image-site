@@ -32,8 +32,9 @@
     <!--image-->
     <div class="imgContainer">
 
-        <div class="detailsImg"><img src="<%= 'https://i.squarestory.net/' + data[0].photopath %>"
-                style="max-width: 50%" alt="">
+        <% var detail = data[0].photopath %>
+        <div class="detailsImg" ><a href="<%= "https://i.squarestory.net/" + detail %>" target="_blank"><img src="<%= 'https://i.squarestory.net/' + data[0].photopath %>"
+                                         style="max-width: 50%" alt="" ></a>
         </div>
 
         <!--title-->
