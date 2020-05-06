@@ -3,6 +3,8 @@
 <body>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="../javascripts/moment.js"></script>
+    <script type="text/javascript" src="../javascripts/moment-timezone-with-data.js"></script>
 
     <div class="navbar">
         <a class="active" href="homePage">Home</a>
@@ -45,6 +47,11 @@
                 <%if(data[0].posttime){%>
                 <% var date = new Date(data[0].posttime)%>
                 <%= data[0].posttime%>
+                <%= console.log(date)%>
+                    <script>
+                        const date2 = moment()
+                        console.log(moment.tz.guess())
+                    </script>
                 <%}%>
             </p>
         </div>
@@ -112,6 +119,7 @@
 
     <script type="text/javascript" src="../javascripts/formValidation.js"></script>
     <script type="text/javascript" src="../javascripts/editPost.js"></script>
+
 </body>
 
 </html>
