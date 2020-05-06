@@ -39,20 +39,20 @@
         <!--title-->
         <%var title = "" + data[0].title%>
         <div id="ititle">
-            <p class="imgTitle">
-                <%= title %>
-            </p>
-
-            <p class="imgDescription">
+            <p class="imgDescription" id="imgInfo">
                 <%if(data[0].posttime){%>
-                <% var date = new Date(data[0].posttime)%>
-                <% JSON.stringify(date)%>
+                <% var imageDate = new Date(data[0].posttime)%>
+                <% JSON.stringify(imageDate)%>
                 <script>
-                    var date = <%-JSON.stringify(new Date(data[0].posttime))%>;
-                    var testdate = moment.tz(date, moment.tz.guess());
-                    document.write(testdate.format(moment.HTML5_FMT.DATE + " " + moment.HTML5_FMT.TIME))
+                    var imageDate = <%-JSON.stringify(new Date(data[0].posttime))%>;
+                    var testdate = moment.tz(imageDate, moment.tz.guess());
+                    document.getElementById("imgInfo").innerHTML = (testdate.format("MM/DD/YY HH:mm"))
                 </script>
                 <%}%>
+            </p>
+
+            <p class="imgTitle">
+                <%= title %>
             </p>
         </div>
 
@@ -101,18 +101,45 @@
 
 
     <div class="commentContainer">
-        <%if(typeof cmnts == 'object' && cmnts.length) {
-            for(var i = cmnts.length - 1; i >= 0; i--) { %>
-        <%var comment = "" + cmnts[i].comment%>
-        <%var user = "" + cmnts[i].poster%>
-        <%var postDate = "" + cmnts[i].posttime%>
-        <p class="comment-poster">
-            <%= user %>: at <%= postDate %>
-        </p>
-        <p class="comment">
-            <%= comment %>
-        </p>
-        <%}}%>
+        <%if(typeof cmnts == 'object' && cmnts.length) { %>
+
+            <p id="commentPoster">
+
+            </p>
+
+            <p id="commentInfo">
+            </p>
+
+            <script>
+                <%var it = 0;%>
+                var len = <%- JSON.stringify(cmnts.length)%>
+                <%it = JSON.stringify(cmnts.length)%>
+                <%for(var i = it - 1 ; i >= 0; i--) { %>
+                    var commentDate = <%- JSON.stringify(new Date(cmnts[i].posttime)) %>;
+                    var commenter = <%- JSON.stringify(cmnts[i].poster) %>
+                    var comment = <%- JSON.stringify(cmnts[i].comment)%>
+                    var testcommentdate = moment.tz(commentDate, moment.tz.guess());
+
+                    var posterName = document.createElement('poster' + <%=i%>)
+                    posterName.id = "poster" + <%=i%>;
+                    posterName.className = 'comment-poster'
+                    console.log(posterName.id)
+                    posterName.innerHTML = '<div>' + commenter + " - " + '<div style="display:inline-block; font-size: 15px; font-weight: normal">' + testcommentdate.format("MM/DD/YY HH:mm") + '</div>' + '<br> </div>'
+
+                    var commentInfo = document.createElement('comment' + <%=i%>)
+                    commentInfo.id = "comment" + <%=i%>;
+                    commentInfo.className = 'comment';
+
+                    console.log(commentInfo.id)
+                    commentInfo.innerHTML = '<p class="comment">' + comment + '<br> </p>'
+
+                    document.getElementById("commentPoster").appendChild(posterName)
+                    document.getElementById("commentPoster").appendChild(commentInfo)
+                <%}%>
+            </script>
+
+
+        <%}%>
     </div>
 
     </div>

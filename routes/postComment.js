@@ -1,4 +1,5 @@
 const date = require('date-and-time');
+var moment = require('moment');
 
 exports.postcomment = function (req, res) {
     var g = req.url;
@@ -17,6 +18,7 @@ exports.postcomment = function (req, res) {
                     "fk_userid": req.session.user,
                     "fk_postid": t,
                     "poster": result[0].username,
+                    "posttime": moment().format()
                 };
 
                 connection.query('INSERT INTO comments SET ?;', commentInfo, function (error) {
