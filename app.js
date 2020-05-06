@@ -8,9 +8,8 @@ const path = require('path');
 const session = require('express-session');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const sizesOf = require('image-size');
+var moment = require('moment');
 const AWS = require('aws-sdk');
-const date = require('date-and-time');
 const router = express.Router();
 global["photopath"] = "";
 global["isLoggedIn"] = false;
@@ -86,11 +85,14 @@ app.get('/registration', checkRegistration, function (req, res, next) {
 app.get('/logout', checkLogout, function (req, res) {
     isLoggedIn = false;
     res.render('logout', { isLoggedIn: isLoggedIn });
-
 });
 
 app.get('/postImage', checkSignIn, function (req, res) {
     res.render('postImage', { isLoggedIn: isLoggedIn });
+});
+
+app.get('/deletePost*', function (req, res){
+    res.redirect('/homePage');
 });
 
 app.get('/imageDetails*', imageDetails.details);
@@ -185,8 +187,6 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
             var buffer = Buffer.concat(chunks);
             var dimensions = sizeOf(buffer);
             console.log(dimensions);
-            const now = new Date();
-            var formattedDate = date.format(now, 'YYYY/MM/DD HH:mm');
 
             var imageInfo = {
                 "title": req.body.title,
@@ -196,7 +196,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "photopath": photopath,
                 "photowidth": dimensions.width,
                 "photoheight": dimensions.height,
-                "postdate": formattedDate
+                "posttime": moment().format()
             };
 
             connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
@@ -211,6 +211,52 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
 app.post('/homePage', searchResults.list);
 
 app.post('/imageDetails*', editpost.edit);
+
+app.post('/deletePost*', function(req, res){
+    if(req.session.user) {
+        var g = req.url;
+        global["paths"] = g.substring(11, g.length);
+        var t = parseInt(paths);
+
+        var itemToRemove = "";
+
+        const searchsql = 'SELECT photopath FROM `test2`.`imageposts` WHERE id=?;';
+        connection.query(searchsql, t, function (error, result) {
+            if (error) {
+                console.log("can't get the post's photopath")
+            } else {
+                itemToRemove = result[0].photopath;
+                console.log(itemToRemove);
+                var params = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Delete: {
+                        Objects: [
+                            {
+                                Key: "public/" + itemToRemove
+                            },
+                        ],
+                    },
+                };
+                s3.deleteObjects(params, function(err, data) {
+                    if (err) console.log(err, err.stack); // an error occurred
+                    else{
+                        console.log("deleted item from s3");
+                    }
+                });
+                const sql = 'DELETE FROM `test2`.`imageposts` WHERE id=?';
+                connection.query(sql, t, function(error){
+                    if(error){
+                        console.log("error deleting imagepost", error)
+                    }
+                    else{
+                        console.log("removed post from database");
+                        res.redirect('/homePage');
+                    }
+                })
+            }
+        })
+    }
+});
 
 app.use('/login', function (err, req, res, next) {
     console.log(err);
