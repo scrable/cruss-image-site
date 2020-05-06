@@ -46,11 +46,16 @@
             <p class="imgDescription">
                 <%if(data[0].posttime){%>
                 <% var date = new Date(data[0].posttime)%>
+                    <% JSON.stringify(date)%>
                 <%= data[0].posttime%>
                 <%= console.log(date)%>
                     <script>
-                        const date2 = moment()
+                        var date = <%-JSON.stringify(new Date(data[0].posttime))%>;
                         console.log(moment.tz.guess())
+                        var testdate = moment.tz(date, moment.tz.guess());
+                        console.log(testdate.tz(moment.tz.guess()).format())
+                        console.log(testdate.format(moment.HTML5_FMT.DATE + " " + moment.HTML5_FMT.TIME))
+                        console.log(moment(date).tz(moment.tz.guess()).format('Z'))
                     </script>
                 <%}%>
             </p>

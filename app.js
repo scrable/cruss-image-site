@@ -8,6 +8,7 @@ const path = require('path');
 const session = require('express-session');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+var moment = require('moment');
 const AWS = require('aws-sdk');
 const router = express.Router();
 global["photopath"] = "";
@@ -192,6 +193,7 @@ app.post('/postImage', upload.single('img'), function (req, res, next) {
                 "photopath": photopath,
                 "photowidth": dimensions.width,
                 "photoheight": dimensions.height,
+                "posttime": moment().format()
             };
 
             connection.query('INSERT INTO imageposts SET ?;', imageInfo, function (error) {
