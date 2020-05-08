@@ -136,14 +136,15 @@
                     var posterName = document.createElement('poster' + <%=i%>)
                     posterName.id = "poster" + <%=i%>;
                     posterName.className = 'comment-poster'
-                    console.log(posterName.id)
-                    posterName.innerHTML = '<div>' + commenter + " - " + '<div style="display:inline-block; font-size: 15px; font-weight: normal">' + testcommentdate.format("MM/DD/YY HH:mm") + '</div>' + '<br> </div>'
+
+                    posterName.innerHTML = ' <div>' + commenter + " - " +
+                        '<div style="display: inline; font-size: 15px; font-weight: normal">' + testcommentdate.format("MM/DD/YY HH:mm")
+                        '</div>' + '<br> </div> '
 
                     var commentInfo = document.createElement('comment' + <%=i%>)
                     commentInfo.id = "comment" + <%=i%>;
                     commentInfo.className = 'comment';
 
-                    console.log(commentInfo.id)
                     commentInfo.innerHTML = '<p class="comment">' + comment + '<br> </p>'
 
                     document.getElementById("commentPoster").appendChild(posterName)

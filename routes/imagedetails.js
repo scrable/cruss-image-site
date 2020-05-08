@@ -7,7 +7,6 @@ exports.details = function(req, res){
     connection.query('SELECT * FROM `test2`.`imageposts` WHERE id=?;', t,function(err,rows) {
         connection.query('SELECT * FROM `test2`.`comments` WHERE fk_postid=?;', t, function (err, cms) {
             connection.query('SELECT * FROM `test2`.`users` WHERE admin=?', 1, function(err, userIDs){
-                console.log(userIDs)
                 if(typeof rows == 'object' && rows.length){
                     gettingUserID = req.session.user;
                 }
