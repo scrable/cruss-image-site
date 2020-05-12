@@ -214,6 +214,7 @@ app.post('/imageDetails*', editpost.edit);
 
 app.post('/deletePost*', function(req, res){
     if(req.session.user) {
+        console.log("gggg");
         var g = req.url;
         global["paths"] = g.substring(11, g.length);
         var t = parseInt(paths);
@@ -231,10 +232,15 @@ app.post('/deletePost*', function(req, res){
             }
         });
 
-        connection.query('SELECT * FROM `test2`.`users` WHERE admin=?', 1, function(err, userIDs){
-            if(userIDs){
+        let adminSQL = 'SELECT * FROM `test2`.`users` WHERE admin=?';
+        let adminValues = 1;
+        connection.query(adminSQL, adminValues, function(err, userIDs){
+            if (err) {
+                console.log("can't get admins")
+            }
+            else if(userIDs.length){
                 for(let id = 0; id < userIDs.length; id++){
-                    if (req.session.user === userIDs.id){
+                    if (req.session.user === userIDs[id].id){
                         isAdmin = "true"
                     }
                 }
@@ -248,36 +254,34 @@ app.post('/deletePost*', function(req, res){
         connection.query(searchsql, t, function (error, result) {
             if (error) {
                 console.log("can't get the post's photopath")
-            } else {
-                if (req.session.user === poster || isAdmin === "true") {
-                    itemToRemove = result[0].photopath;
-                    console.log(itemToRemove);
-                    var params = {
-                        Bucket: process.env.AWS_BUCKET_NAME,
-                        Delete: {
-                            Objects: [
-                                {
-                                    Key: "public/" + itemToRemove
-                                },
-                            ],
-                        },
-                    };
-                    s3.deleteObjects(params, function (err, data) {
-                        if (err) console.log(err, err.stack); // an error occurred
-                        else {
-                            console.log("deleted item from s3");
-                        }
-                    });
-                    const sql = 'DELETE FROM `test2`.`imageposts` WHERE id=?';
-                    connection.query(sql, t, function (error) {
-                        if (error) {
-                            console.log("error deleting imagepost", error)
-                        } else {
-                            console.log("removed post from database");
-                            res.redirect('/homePage');
-                        }
-                    })
-                }
+            } else if (req.session.user === poster || isAdmin === "true") {
+                itemToRemove = result[0].photopath;
+                console.log(itemToRemove);
+                var params = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Delete: {
+                        Objects: [
+                            {
+                                Key: "public/" + itemToRemove
+                            },
+                        ],
+                    },
+                };
+                s3.deleteObjects(params, function (err, data) {
+                    if (err) console.log(err, err.stack); // an error occurred
+                    else {
+                        console.log("deleted item from s3");
+                    }
+                });
+                const sql = 'DELETE FROM `test2`.`imageposts` WHERE id=?';
+                connection.query(sql, t, function (error) {
+                    if (error) {
+                        console.log("error deleting imagepost", error)
+                    } else {
+                        console.log("removed post from database");
+                        res.redirect('/homePage');
+                    }
+                })
             }
         })
     }
