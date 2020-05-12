@@ -220,6 +220,7 @@ app.post('/deletePost*', function(req, res){
 
         var itemToRemove = "";
         var poster = "";
+        var isAdmin = "false"
 
         const userIDsearch = 'SELECT fk_userid FROM `test2`.`imageposts` WHERE id=?';
         connection.query(userIDsearch, t, function(error, userID){
@@ -230,12 +231,25 @@ app.post('/deletePost*', function(req, res){
             }
         });
 
+        connection.query('SELECT * FROM `test2`.`users` WHERE admin=?', 1, function(err, userIDs){
+            if(userIDs){
+                for(let id = 0; id < userIDs.length; id++){
+                    if (req.session.user === userIDs.id){
+                        isAdmin = "true"
+                    }
+                }
+            }
+            else{
+                isAdmin = "false"
+            }
+        });
+
         const searchsql = 'SELECT * FROM `test2`.`imageposts` WHERE id=?;';
         connection.query(searchsql, t, function (error, result) {
             if (error) {
                 console.log("can't get the post's photopath")
             } else {
-                if (req.session.user === poster) {
+                if (req.session.user === poster || isAdmin === "true") {
                     itemToRemove = result[0].photopath;
                     console.log(itemToRemove);
                     var params = {
