@@ -1,5 +1,5 @@
-var elem = document.querySelector('.grid');
-var msnry = new Masonry( elem, {
+let elem = document.querySelector('.grid');
+let msnry = new Masonry(elem, {
     itemSelector: '.grid-item',
     columnWidth: 450,
     fitWidth: true,

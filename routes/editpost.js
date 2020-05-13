@@ -1,19 +1,20 @@
 const imageDetails = require("./imagedetails");
 const postcomment = require("./postComment");
-exports.edit = function(req, res){
+exports.edit = function (req, res) {
 
     // if we are posting a comment, reload imagedetails page
     if (postcomment.postcomment(req, res))
         imageDetails.details(req, res);
 
-    var g = req.url;
+    let g = req.url;
     global["paths"] = g.substring(13, g.length);
-    var t = parseInt(paths);
-    var posttitle;
-    var postid;
+    let t = parseInt(paths);
+    let posttitle;
+    let postid;
+    let postdescription;
 
     // run if we are editing
-    if(req.body.title && req.body.description) {
+    if (req.body.title && req.body.description) {
         connection.query('SELECT * FROM `test2`.`imageposts` WHERE id=?;', t, function (err, rows) {
             connection.query('SELECT * FROM `test2`.`comments` WHERE fk_postid=?;', t, function () {
                 posttitle = req.body.title;

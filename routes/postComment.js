@@ -13,7 +13,7 @@ exports.postcomment = function (req, res) {
             }
             if (result.length > 0) {
 
-                var commentInfo = {
+                const commentInfo = {
                     "comment": req.body.comment,
                     "fk_userid": req.session.user,
                     "fk_postid": t,

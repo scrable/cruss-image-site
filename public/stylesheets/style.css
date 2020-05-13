@@ -7,7 +7,7 @@ body {
     background-color: #484848;
     position: fixed;
     top: 0;
-    left:0;
+    left: 0;
     width: 100%;
     font-family: sans-serif;
     z-index: 1000;
@@ -36,7 +36,7 @@ form.search input[type=text] {
     margin-top: 46px;
     padding: 10px;
     font-size: 15px;
-    border:none;
+    border: none;
     width: 80%;
     background: #484848;
     display: inline-block;
@@ -94,19 +94,19 @@ form.search::after {
     margin-right: auto;
 }
 
-.imgTitle{
+.imgTitle {
     font-family: sans-serif;
     color: snow;
     font-size: 32px;
     font-weight: bold;
 }
 
-.imgDescription{
+.imgDescription {
     font-family: sans-serif;
     color: snow;
     font-size: 18px;
     margin-left: 35%;
-    margin-right:35%;
+    margin-right: 35%;
 }
 
 label {
@@ -171,7 +171,7 @@ label {
     text-transform: uppercase;
     margin-left: 16%;
     margin-right: auto;
-    margin-top:10px;
+    margin-top: 10px;
     height: 40px;
     border-radius: 8px;
 }
@@ -184,12 +184,15 @@ label {
 .homeImg {
     width: 100%;
 }
-.detailsImg{
+
+.detailsImg {
     margin-top: 100px;
 }
-.imgContainer{
+
+.imgContainer {
     text-align: center;
 }
+
 .grid-item {
     margin-bottom: 4px;
     -webkit-transition: opacity 200ms;
@@ -198,16 +201,19 @@ label {
     position: relative;
     z-index: 1;
 }
-.lazy{
+
+.lazy {
     max-width: 450px;
 }
-.grid-item:hover{
+
+.grid-item:hover {
     opacity: 0.3;
     filter: alpha(opacity=30);
     z-index: 2;
 }
+
 .flexbox {
-    text-align:center;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
     margin-top: 16px;
@@ -226,7 +232,7 @@ label {
     margin-bottom: -200px; */
 }
 
-.comment{
+.comment {
     font-family: sans-serif;
     color: snow;
     font-size: 18px;
@@ -235,22 +241,23 @@ label {
     display: block;
 }
 
-.comment-poster{
+.comment-poster {
     font-family: sans-serif;
     font-weight: bold;
     color: snow;
     font-size: 20px;
     text-align: left;
 }
-.commentContainer{
-    width:40%;
+
+.commentContainer {
+    width: 40%;
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
     margin-bottom: 20%;
     margin-top: 100px;
 }
 
-.noSearchResults{
+.noSearchResults {
     color: white;
     text-align: center;
     font-size: 32px;
