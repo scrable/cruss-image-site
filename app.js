@@ -17,7 +17,7 @@ const app = express();
 
 if (process.env.ENABLE_HTTPS === 'true') {
     const enforce = require('express-sslify');
-    app.use(enforce.HTTPS({ trustProtoHeader: true }));
+    app.use(enforce.HTTPS({trustProtoHeader: true}));
 }
 
 const s3 = new AWS.S3({
@@ -60,9 +60,9 @@ app.set('view engine', 'ejs');
 
 app.use(session({
     secret: 'greetings', saveUninitialized: false, resave: true,
-    cookie: { maxAge: 60000000, httpOnly: true, secure: false }
+    cookie: {maxAge: 60000000, httpOnly: true, secure: false}
 }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -75,23 +75,23 @@ app.get('/', function (req, res) {
 });
 
 app.get('/login', checkLogin, function (req, res, next) {
-    res.render('login', { isLoggedIn: isLoggedIn });
+    res.render('login', {isLoggedIn: isLoggedIn});
 });
 
 app.get('/registration', checkRegistration, function (req, res, next) {
-    res.render('registration', { isLoggedIn: isLoggedIn });
+    res.render('registration', {isLoggedIn: isLoggedIn});
 });
 
 app.get('/logout', checkLogout, function (req, res) {
     isLoggedIn = false;
-    res.render('logout', { isLoggedIn: isLoggedIn });
+    res.render('logout', {isLoggedIn: isLoggedIn});
 });
 
 app.get('/postImage', checkSignIn, function (req, res) {
-    res.render('postImage', { isLoggedIn: isLoggedIn });
+    res.render('postImage', {isLoggedIn: isLoggedIn});
 });
 
-app.get('/deletePost*', function (req, res){
+app.get('/deletePost*', function (req, res) {
     res.redirect('/homePage');
 });
 
@@ -104,7 +104,7 @@ app.get('/homePage', function (req, res) {
     connection.query('SELECT * FROM `test2`.`imageposts`;', function (err, rows) {
         if (err)
             console.log("Error Selecting : %s ", err);
-        res.render('homePage', { page_title: "Test Table", data: rows, isLoggedIn: isLoggedIn });
+        res.render('homePage', {page_title: "Test Table", data: rows, isLoggedIn: isLoggedIn});
     });
 });
 
@@ -144,6 +144,7 @@ function checkLogout(req, res, next) {
         next(err);
     }
 }
+
 app.get('/homePage.html', function (req, res) {
     res.redirect('/homePage');
 });
@@ -171,24 +172,24 @@ app.post('/registration', login.registration, login.login);
 
 app.post('/postImage', upload.single('img'), function (req, res, next) {
 
-    var url = require('url');
-    var https = require('https');
+    let url = require('url');
+    let https = require('https');
 
-    var sizeOf = require('image-size');
+    let sizeOf = require('image-size');
 
-    var imgUrl = "https://i.squarestory.net/" + photopath;//process.env.AWS_BUCKET_GETBUCKET_PUBLIC_NAME + "/" + imgname;
-    var options = url.parse(imgUrl);
+    let imgUrl = "https://i.squarestory.net/" + photopath;
+    let options = url.parse(imgUrl);
 
     https.get(options, function (response) {
-        var chunks = [];
+        let chunks = [];
         response.on('data', function (chunk) {
             chunks.push(chunk);
         }).on('end', function () {
-            var buffer = Buffer.concat(chunks);
-            var dimensions = sizeOf(buffer);
+            let buffer = Buffer.concat(chunks);
+            let dimensions = sizeOf(buffer);
             console.log(dimensions);
 
-            var imageInfo = {
+            const imageInfo = {
                 "title": req.body.title,
                 "description": req.body.description,
                 "fk_userid": req.session.user,
@@ -212,17 +213,19 @@ app.post('/homePage', searchResults.list);
 
 app.post('/imageDetails*', editpost.edit);
 
-app.post('/deletePost*', function(req, res){
-    if(req.session.user) {
-        var g = req.url;
+app.post('/deletePost*', function (req, res) {
+    if (req.session.user) {
+        console.log("gggg");
+        let g = req.url;
         global["paths"] = g.substring(11, g.length);
-        var t = parseInt(paths);
+        let t = parseInt(paths);
 
-        var itemToRemove = "";
-        var poster = "";
+        let itemToRemove = "";
+        let poster = "";
+        let isAdmin = "false";
 
         const userIDsearch = 'SELECT fk_userid FROM `test2`.`imageposts` WHERE id=?';
-        connection.query(userIDsearch, t, function(error, userID){
+        connection.query(userIDsearch, t, function (error, userID) {
             if (error) {
                 console.log("can't get the userid")
             } else {
@@ -230,40 +233,54 @@ app.post('/deletePost*', function(req, res){
             }
         });
 
+        let adminSQL = 'SELECT * FROM `test2`.`users` WHERE admin=?';
+        let adminValues = 1;
+        connection.query(adminSQL, adminValues, function (err, userIDs) {
+            if (err) {
+                console.log("can't get admins")
+            } else if (userIDs.length) {
+                for (let id = 0; id < userIDs.length; id++) {
+                    if (req.session.user === userIDs[id].id) {
+                        isAdmin = "true"
+                    }
+                }
+            } else {
+                isAdmin = "false"
+            }
+        });
+
         const searchsql = 'SELECT * FROM `test2`.`imageposts` WHERE id=?;';
         connection.query(searchsql, t, function (error, result) {
             if (error) {
                 console.log("can't get the post's photopath")
-            } else {
-                if (req.session.user === poster) {
-                    itemToRemove = result[0].photopath;
-                    console.log(itemToRemove);
-                    var params = {
-                        Bucket: process.env.AWS_BUCKET_NAME,
-                        Delete: {
-                            Objects: [
-                                {
-                                    Key: "public/" + itemToRemove
-                                },
-                            ],
-                        },
-                    };
-                    s3.deleteObjects(params, function (err, data) {
-                        if (err) console.log(err, err.stack); // an error occurred
-                        else {
-                            console.log("deleted item from s3");
-                        }
-                    });
-                    const sql = 'DELETE FROM `test2`.`imageposts` WHERE id=?';
-                    connection.query(sql, t, function (error) {
-                        if (error) {
-                            console.log("error deleting imagepost", error)
-                        } else {
-                            console.log("removed post from database");
-                            res.redirect('/homePage');
-                        }
-                    })
-                }
+            } else if (req.session.user === poster || isAdmin === "true") {
+                itemToRemove = result[0].photopath;
+                console.log(itemToRemove);
+                let params = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Delete: {
+                        Objects: [
+                            {
+                                Key: "public/" + itemToRemove
+                            },
+                        ],
+                    },
+                };
+                s3.deleteObjects(params, function (err, data) {
+                    if (err) console.log(err, err.stack); // an error occurred
+                    else {
+                        console.log("deleted item from s3");
+                    }
+                });
+                const sql = 'DELETE FROM `test2`.`imageposts` WHERE id=?';
+                connection.query(sql, t, function (error) {
+                    if (error) {
+                        console.log("error deleting imagepost", error)
+                    } else {
+                        console.log("removed post from database");
+                        res.redirect('/homePage');
+                    }
+                })
             }
         })
     }

@@ -3,12 +3,11 @@
     This function is used to validate login as well as registration.
  */
 validateUser = (string) => {
-    if(string.length < 3){
+    if (string.length < 3) {
         window.alert("Username must be 3 or more alphanumeric characters.");
         document.getElementById("uname").focus();
         return false;
-    }
-    else return true;
+    } else return true;
 };
 
 /*
@@ -20,17 +19,17 @@ validateLogin = () => {
     let input = document.forms["login"]["username"].value;
     let psw = document.forms["login"]["password"].value;
 
-    var validated = validateUser(input);
+    const validated = validateUser(input);
 
     if (!validated) return false;
 
-    if(psw.length < 8) {
+    if (psw.length < 8) {
         window.alert("Password must be at least 8 characters long.");
         document.getElementById("psw").focus();
         return false;
     }
 
-    var myJSON = JSON.stringify(input);
+    let myJSON = JSON.stringify(input);
     console.log(myJSON);
 };
 
@@ -45,20 +44,20 @@ validateRegistration = () => {
     let input = document.forms["registration"]["uname"].value;
     let psw = document.forms["registration"]["psw"].value;
     let confirmpsw = document.forms["registration"]["cpsw"].value;
-    var regex = /^(?=.*[0-9])(?=.*[*!@#$^&])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    const regex = /^(?=.*[0-9])(?=.*[*!@#$^&])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-    var validated = validateUser(input);
+    const validated = validateUser(input);
 
     if (!validated) return false;
 
-    if(!regex.test(psw)){
+    if (!regex.test(psw)) {
         alert("Password must be at least 8 characters long, contain at least one number, one uppercase and one special character");
         document.getElementById("psw").focus();
         return false;
     }
 
     if (psw !== confirmpsw) {
-        alert ("Passwords did not match. Please try again.");
+        alert("Passwords did not match. Please try again.");
         return false;
     }
 
@@ -69,7 +68,7 @@ validateRegistration = () => {
 validateTitle = () => {
     let post_title = document.getElementById("ptitle");
 
-    if(post_title.value.length < 10){
+    if (post_title.value.length < 10) {
         alert("Please enter a title with at least 10 characters.");
         post_title.focus();
         return false;
@@ -80,7 +79,7 @@ validateTitle = () => {
 validateDescription = () => {
     let post_description = document.getElementById("pdescription");
 
-    if(post_description.value.length < 10){
+    if (post_description.value.length < 10) {
         alert("Please enter a description with at least 10 characters.");
         post_description.focus();
         return false;
@@ -99,28 +98,21 @@ validatePost = () => {
     let path = image_file.value;
     let extensions = /(\.jpg|\.jpeg|\.png|\.bmp|\.gif)$/i;
 
-    if (!validateTitle())
-    {
+    if (!validateTitle()) {
         return false;
-    }
-
-    else if (!validateDescription())
-    {
+    } else if (!validateDescription()) {
         return false;
-    }
-
-    else if(!extensions.exec(path)){
+    } else if (!extensions.exec(path)) {
         alert("Not a valid image. Please upload images that are either jpg, png, bmp or gif");
         return false;
-    }
-    else return true;
+    } else return true;
 
-    };
+};
 
 validateSearch = () => {
-    var searchText = document.getElementById("searchtext");
+    const searchText = document.getElementById("searchtext");
 
-    if(searchText.value.length < 3){
+    if (searchText.value.length < 3) {
         alert("Please enter a search with more than 3 characters.");
         searchText.focus();
         return false;
@@ -129,9 +121,9 @@ validateSearch = () => {
 };
 
 validateComment = () => {
-    var comment = document.getElementById("comments");
+    const comment = document.getElementById("comments");
 
-    if(!comment.value.length){
+    if (!comment.value.length) {
         return false;
     }
 };

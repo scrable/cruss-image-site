@@ -3,40 +3,32 @@ var home = require('./../routes/home');
 exports.registration = function (req, res, next) {
     if (req.session.user)
         res.redirect("/homePage");
-    var users = {
+    const users = {
         "username": req.body.username,
         "email": req.body.email,
         "password": req.body.password,
-
     };
-    connection.query('SELECT username FROM `test2`.`users` WHERE username=?;', users.username, function (error, results, fields) {
+    connection.query('SELECT username FROM `test2`.`users` WHERE username=?;', users.username, function (error, results) {
         if (results.length > 0) {
             if (users.username === results[0].username)
                 console.log("The username already exists");
-            //do something to display that here
             res.render('registration');
-        }
-        else {
-            (connection.query('SELECT email FROM `test2`.`users` WHERE email=?;', users.email, function (error, results, fields) {
+        } else {
+            connection.query('SELECT email FROM `test2`.`users` WHERE email=?;', users.email, function (error, results) {
                 if (results.length > 0) {
                     if (users.email === results[0].email)
                         console.log("The email already exists");
-                    //do something to display it here
                     res.render('registration');
                 } else {
-                    connection.query('INSERT INTO users SET ?', users, function (error, results, fields) {
+                    connection.query('INSERT INTO users SET ?', users, function (error) {
                         if (error) {
                             console.log("error ocurred", error);
-                            res.send({
-                                "code": 400,
-                                "failed": "error ocurred"
-                            })
                         } else {
                             exports.login(req, res);
                         }
                     });
                 }
-            }));
+            });
         }
     });
 };
